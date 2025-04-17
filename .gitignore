@@ -1,0 +1,60 @@
+.DS_Store
+Thumbs.db
+
+# 忽略日志文件
+*.log
+
+# 忽略临时文件
+*.tmp
+*.swp
+
+# 忽略编译输出
+/dist
+/build
+/out
+
+# 忽略依赖包
+/node_modules
+/vendor
+
+# 忽略环境配置文件
+.env
+.env.local
+.env.*.local
+
+# 忽略IDE配置文件
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# CMAKE
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+CMakeUserPresets.json
+
+# vscode
+build
+.VSCodeCounter
+.vscode/*.log
+.vscode
+
+# bin
+libagora_rtm_sdk_c.a
+libagora_rtm_sdk_c.so
+
+# agora sdk
+agora_rtm_sdk_download-prefix
+agora_rtm_cache.db
+agorartmdns.dat
+agorartmreport.dat
+crash_context_v1
