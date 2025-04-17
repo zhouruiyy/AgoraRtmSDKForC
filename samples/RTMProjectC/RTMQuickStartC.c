@@ -94,14 +94,13 @@ typedef struct C_DemoMessaging
 } C_DemoMessaging;
 
 // 前置声明函数，以避免未声明的隐式函数调用
-int C_IRtmClient_login(C_IRtmClient *this_, const char *token, uint64_t *requestId);
-int C_IRtmClient_logout(C_IRtmClient *this_, uint64_t *requestId);
-int C_IRtmClient_subscribe(C_IRtmClient *this_, const char *channelName, const struct C_SubscribeOptions *options, uint64_t *requestId);
-int C_IRtmClient_unsubscribe(C_IRtmClient *this_, const char *channelName, uint64_t *requestId);
-int C_IRtmClient_publish(C_IRtmClient *this_, const char *channelName, const char *message, const size_t length, const struct C_PublishOptions *option, uint64_t *requestId);
-int C_IRtmClient_release(C_IRtmClient *this_);
+int agora_rtm_client_login(C_IRtmClient *this_, const char *token, uint64_t *requestId);
+int agora_rtm_client_logout(C_IRtmClient *this_, uint64_t *requestId);
+int agora_rtm_client_subscribe(C_IRtmClient *this_, const char *channelName, const struct C_SubscribeOptions *options, uint64_t *requestId);
+int agora_rtm_client_unsubscribe(C_IRtmClient *this_, const char *channelName, uint64_t *requestId);
+int agora_rtm_client_publish(C_IRtmClient *this_, const char *channelName, const char *message, const size_t length, const struct C_PublishOptions *option, uint64_t *requestId);
+int agora_rtm_client_release(C_IRtmClient *this_);
 
-// 修改函数签名，添加用户ID参数
 C_DemoMessaging *C_DemoMessaging_New(const char *userId)
 {
     C_DemoMessaging *this_ = (C_DemoMessaging *)calloc(1, sizeof(C_DemoMessaging));
@@ -133,12 +132,12 @@ C_DemoMessaging *C_DemoMessaging_New(const char *userId)
     
     // 设置配置
     config->appId = APP_ID;
-    config->userId = userId;  // 使用传入的用户ID
+    config->userId = userId;
     config->eventHandler = this_->eventHandler_;
     
     // 创建RTM客户端
     int errorCode = 0;
-    this_->rtmClient_ = C_createAgoraRtmClient(config, &errorCode);
+    this_->rtmClient_ = agora_rtm_client_create(config, &errorCode);
     if (this_->rtmClient_ == NULL || errorCode != 0) {
         printf(RED "Error creating RTM client: %d\n" RESET, errorCode);
         C_RtmConfig_Delete(config);
@@ -158,7 +157,7 @@ void C_DemoMessaging_Delete(C_DemoMessaging *this_)
     }
     
     if (this_->rtmClient_ != NULL) {
-        C_IRtmClient_release(this_->rtmClient_);
+        agora_rtm_client_release(this_->rtmClient_);
         this_->rtmClient_ = NULL;
     }
     
@@ -179,8 +178,8 @@ void C_DemoMessaging_logout(C_DemoMessaging *this_)
     }
     
     uint64_t requestId;
-    int ret = C_IRtmClient_logout(this_->rtmClient_, &requestId);
-    printf(BOLDBLUE "logout ret: %d, requestId: %llu\n" RESET, ret, requestId);
+    int ret = agora_rtm_client_logout(this_->rtmClient_, &requestId);
+    printf(BOLDBLUE "logout ret: %d, requestId: %lu\n" RESET, ret, requestId);
 }
 
 // Subscribe to a channel
@@ -202,8 +201,8 @@ void C_DemoMessaging_subscribeChannel(C_DemoMessaging *this_, char *chnId)
     opt->withPresence = true;
     
     uint64_t requestId;
-    int ret = C_IRtmClient_subscribe(this_->rtmClient_, chnId, opt, &requestId);
-    printf(BOLDBLUE "subscribe ret: %d, requestId: %llu\n" RESET, ret, requestId);
+    int ret = agora_rtm_client_subscribe(this_->rtmClient_, chnId, opt, &requestId);
+    printf(BOLDBLUE "subscribe ret: %d, requestId: %lu\n" RESET, ret, requestId);
     
     C_SubscribeOptions_Delete(opt);
 }
@@ -217,8 +216,8 @@ void C_DemoMessaging_unsubscribeChannel(C_DemoMessaging *this_, char *chnId)
     }
     
     uint64_t requestId;
-    int ret = C_IRtmClient_unsubscribe(this_->rtmClient_, chnId, &requestId);
-    printf(BOLDBLUE "unsubscribe ret: %d, requestId: %llu\n" RESET, ret, requestId);
+    int ret = agora_rtm_client_unsubscribe(this_->rtmClient_, chnId, &requestId);
+    printf(BOLDBLUE "unsubscribe ret: %d, requestId: %lu\n" RESET, ret, requestId);
 }
 
 // Publish a message
@@ -239,8 +238,8 @@ void C_DemoMessaging_publishMessage(C_DemoMessaging *this_, char *chn, char *msg
     opt->messageType = RTM_MESSAGE_TYPE_STRING;
     
     uint64_t requestId;
-    int ret = C_IRtmClient_publish(this_->rtmClient_, chn, msg, strlen(msg), opt, &requestId);
-    printf(BOLDBLUE "publish ret: %d, requestId: %llu\n" RESET, ret, requestId);
+    int ret = agora_rtm_client_publish(this_->rtmClient_, chn, msg, strlen(msg), opt, &requestId);
+    printf(BOLDBLUE "publish ret: %d, requestId: %lu\n" RESET, ret, requestId);
     
     C_PublishOptions_Delete(opt);
 }
@@ -383,8 +382,8 @@ void C_DemoMessaging_login(C_DemoMessaging *this_)
         
         // 登录到RTM服务器
         uint64_t requestId;
-        int ret = C_IRtmClient_login(this_->rtmClient_, TOKEN, &requestId);
-        printf(BOLDBLUE "login ret: %d, requestId: %llu\n" RESET, ret, requestId);
+        int ret = agora_rtm_client_login(this_->rtmClient_, TOKEN, &requestId);
+        printf(BOLDBLUE "login ret: %d, requestId: %lu\n" RESET, ret, requestId);
         
         if (ret != 0) {
             continue; // 再次尝试登录

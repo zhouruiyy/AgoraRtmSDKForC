@@ -13,7 +13,7 @@ using namespace agora::rtm;
 
 #pragma region C_IRtmLock
 
-void C_IRtmLock_setLock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, uint32_t ttl, uint64_t *requestId)
+void agora_rtm_lock_set_lock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, uint32_t ttl, uint64_t *requestId)
 {
     if (!this_ || !channelName || !lockName || !requestId) {
         return;
@@ -21,7 +21,7 @@ void C_IRtmLock_setLock(C_IRtmLock *this_, const char *channelName, enum C_RTM_C
     ((IRtmLock *)this_)->setLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, ttl, *requestId);
 }
 
-void C_IRtmLock_getLocks(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, uint64_t *requestId)
+void agora_rtm_lock_get_locks(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, uint64_t *requestId)
 {
     if (!this_ || !channelName || !requestId) {
         return;
@@ -29,7 +29,7 @@ void C_IRtmLock_getLocks(C_IRtmLock *this_, const char *channelName, enum C_RTM_
     ((IRtmLock *)this_)->getLocks(channelName, (RTM_CHANNEL_TYPE)channelType, *requestId);
 }
 
-void C_IRtmLock_removeLock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, uint64_t *requestId)
+void agora_rtm_lock_remove_lock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, uint64_t *requestId)
 {
     if (!this_ || !channelName || !lockName || !requestId) {
         return;
@@ -37,7 +37,7 @@ void C_IRtmLock_removeLock(C_IRtmLock *this_, const char *channelName, enum C_RT
     ((IRtmLock *)this_)->removeLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, *requestId);
 }
 
-void C_IRtmLock_acquireLock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, bool retry, uint64_t *requestId)
+void agora_rtm_lock_acquire_lock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, bool retry, uint64_t *requestId)
 {
     if (!this_ || !channelName || !lockName || !requestId) {
         return;
@@ -45,7 +45,7 @@ void C_IRtmLock_acquireLock(C_IRtmLock *this_, const char *channelName, enum C_R
     ((IRtmLock *)this_)->acquireLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, retry, *requestId);
 }
 
-void C_IRtmLock_releaseLock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, uint64_t *requestId)
+void agora_rtm_lock_release_lock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, uint64_t *requestId)
 {
     if (!this_ || !channelName || !lockName || !requestId) {
         return;
@@ -53,7 +53,7 @@ void C_IRtmLock_releaseLock(C_IRtmLock *this_, const char *channelName, enum C_R
     ((IRtmLock *)this_)->releaseLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, *requestId);
 }
 
-void C_IRtmLock_revokeLock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, const char *owner, uint64_t *requestId)
+void agora_rtm_lock_revoke_lock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, const char *owner, uint64_t *requestId)
 {
     if (!this_ || !channelName || !lockName || !owner || !requestId) {
         return;

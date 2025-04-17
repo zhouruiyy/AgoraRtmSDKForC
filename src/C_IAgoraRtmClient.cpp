@@ -278,14 +278,14 @@ void C_IRtmEventHandler_onPresenceGetStateResult(C_IRtmEventHandler *this_, cons
 #pragma endregion C_IRtmEventHandler
 
 #pragma region C_IRtmClient
-int C_IRtmClient_release(C_IRtmClient *this_) {
+int agora_rtm_client_release(C_IRtmClient *this_) {
     if (!this_) {
         return -1;
     }
     return ((IRtmClient *)this_)->release();
 }
 
-int C_IRtmClient_login(C_IRtmClient *this_, const char *token, uint64_t *requestId) {
+int agora_rtm_client_login(C_IRtmClient *this_, const char *token, uint64_t *requestId) {
     if (!this_ || !token || !requestId) {
         return -1;
     }
@@ -293,7 +293,7 @@ int C_IRtmClient_login(C_IRtmClient *this_, const char *token, uint64_t *request
     return 0;
 }
 
-int C_IRtmClient_logout(C_IRtmClient *this_, uint64_t *requestId) {
+int agora_rtm_client_logout(C_IRtmClient *this_, uint64_t *requestId) {
     if (!this_ || !requestId) {
         return -1;
     }
@@ -301,35 +301,35 @@ int C_IRtmClient_logout(C_IRtmClient *this_, uint64_t *requestId) {
     return 0;
 }
 
-C_IRtmStorage *C_IRtmClient_getStorage(C_IRtmClient *this_) {
+C_IRtmStorage *agora_rtm_client_get_storage(C_IRtmClient *this_) {
     if (!this_) {
         return nullptr;
     }
     return (C_IRtmStorage *)((IRtmClient *)this_)->getStorage();
 }
 
-C_IRtmLock *C_IRtmClient_getLock(C_IRtmClient *this_) {
+C_IRtmLock *agora_rtm_client_get_lock(C_IRtmClient *this_) {
     if (!this_) {
         return nullptr;
     }
     return (C_IRtmLock *)((IRtmClient *)this_)->getLock();
 }
 
-C_IRtmPresence *C_IRtmClient_getPresence(C_IRtmClient *this_) {
+C_IRtmPresence *agora_rtm_client_get_presence(C_IRtmClient *this_) {
     if (!this_) {
         return nullptr;
     }
     return (C_IRtmPresence *)((IRtmClient *)this_)->getPresence();
 }
 
-C_IRtmHistory *C_IRtmClient_getHistory(C_IRtmClient *this_) {
+C_IRtmHistory *agora_rtm_client_get_history(C_IRtmClient *this_) {
     if (!this_) {
         return nullptr;
     }
     return (C_IRtmHistory *)((IRtmClient *)this_)->getHistory();
 }
 
-int C_IRtmClient_renewToken(C_IRtmClient *this_, const char *token, uint64_t *requestId) {
+int agora_rtm_client_renew_token(C_IRtmClient *this_, const char *token, uint64_t *requestId) {
     if (!this_ || !token || !requestId) {
         return -1;
     }
@@ -337,7 +337,7 @@ int C_IRtmClient_renewToken(C_IRtmClient *this_, const char *token, uint64_t *re
     return 0;
 }
 
-int C_IRtmClient_publish(C_IRtmClient *this_, const char *channelName, const char *message, const size_t length, const struct C_PublishOptions *option, uint64_t *requestId) {
+int agora_rtm_client_publish(C_IRtmClient *this_, const char *channelName, const char *message, const size_t length, const struct C_PublishOptions *option, uint64_t *requestId) {
     if (!this_ || !channelName || !message || !option || !requestId) {
         return -1;
     }
@@ -345,7 +345,7 @@ int C_IRtmClient_publish(C_IRtmClient *this_, const char *channelName, const cha
     return 0;
 }
 
-int C_IRtmClient_subscribe(C_IRtmClient *this_, const char *channelName, const struct C_SubscribeOptions *options, uint64_t *requestId) {
+int agora_rtm_client_subscribe(C_IRtmClient *this_, const char *channelName, const struct C_SubscribeOptions *options, uint64_t *requestId) {
     if (!this_ || !channelName || !options || !requestId) {
         return -1;
     }
@@ -353,7 +353,7 @@ int C_IRtmClient_subscribe(C_IRtmClient *this_, const char *channelName, const s
     return 0;
 }
 
-int C_IRtmClient_unsubscribe(C_IRtmClient *this_, const char *channelName, uint64_t *requestId) {
+int agora_rtm_client_unsubscribe(C_IRtmClient *this_, const char *channelName, uint64_t *requestId) {
     if (!this_ || !channelName || !requestId) {
         return -1;
     }
@@ -361,14 +361,14 @@ int C_IRtmClient_unsubscribe(C_IRtmClient *this_, const char *channelName, uint6
     return 0;
 }
 
-C_IStreamChannel *C_IRtmClient_createStreamChannel(C_IRtmClient *this_, const char *channelName, int *errorCode) {
+C_IStreamChannel *agora_rtm_client_create_stream_channel(C_IRtmClient *this_, const char *channelName, int *errorCode) {
     if (!this_ || !channelName || !errorCode) {
         return nullptr;
     }
     return (C_IStreamChannel *)((IRtmClient *)this_)->createStreamChannel(channelName, *errorCode);
 }
 
-int C_IRtmClient_setParameters(C_IRtmClient *this_, const char *parameters) {
+int agora_rtm_client_set_parameters(C_IRtmClient *this_, const char *parameters) {
     if (!this_ || !parameters) {
         return -1;
     }
@@ -376,18 +376,18 @@ int C_IRtmClient_setParameters(C_IRtmClient *this_, const char *parameters) {
 }
 #pragma endregion C_IRtmClient
 
-C_IRtmClient *C_createAgoraRtmClient(const struct C_RtmConfig *config, int *errorCode) {
+C_IRtmClient *agora_rtm_client_create(const struct C_RtmConfig *config, int *errorCode) {
     if (!config || !errorCode) {
         return nullptr;
     }
     return (C_IRtmClient *)createAgoraRtmClient(*(const RtmConfig *)config, *errorCode);
 }
 
-const char *C_getErrorReason(int errorCode) {
+const char *agora_rtm_client_get_error_reason(int errorCode) {
     return getErrorReason(errorCode);
 }
 
-const char *C_getVersion() {
+const char *agora_rtm_client_get_version() {
     return getVersion();
 }
 

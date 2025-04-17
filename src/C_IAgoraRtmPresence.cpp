@@ -13,7 +13,7 @@ using namespace agora::rtm;
 
 #pragma region C_IRtmPresence
 
-int C_IRtmPresence_whoNow(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_PresenceOptions *options, uint64_t *requestId)
+int agora_rtm_presence_who_now(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_PresenceOptions *options, uint64_t *requestId)
 {
     if (!this_ || !channelName || !options || !requestId) {
         return -1;
@@ -22,7 +22,7 @@ int C_IRtmPresence_whoNow(C_IRtmPresence *this_, const char *channelName, enum C
     return 0;
 }
 
-int C_IRtmPresence_whereNow(C_IRtmPresence *this_, const char *userId, uint64_t *requestId)
+int agora_rtm_presence_where_now(C_IRtmPresence *this_, const char *userId, uint64_t *requestId)
 {
     if (!this_ || !userId || !requestId) {
         return -1;
@@ -31,7 +31,7 @@ int C_IRtmPresence_whereNow(C_IRtmPresence *this_, const char *userId, uint64_t 
     return 0;
 }
 
-int C_IRtmPresence_setState(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_StateItem *items, size_t count, uint64_t *requestId)
+int agora_rtm_presence_set_state(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_StateItem *items, size_t count, uint64_t *requestId)
 {
     if (!this_ || !channelName || !items || !requestId) {
         return -1;
@@ -40,7 +40,7 @@ int C_IRtmPresence_setState(C_IRtmPresence *this_, const char *channelName, enum
     return 0;
 }
 
-int C_IRtmPresence_removeState(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char **keys, size_t count, uint64_t *requestId)
+int agora_rtm_presence_remove_state(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char **keys, size_t count, uint64_t *requestId)
 {
     if (!this_ || !channelName || !keys || !requestId) {
         return -1;
@@ -49,7 +49,7 @@ int C_IRtmPresence_removeState(C_IRtmPresence *this_, const char *channelName, e
     return 0;
 }
 
-int C_IRtmPresence_getState(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *userId, uint64_t *requestId)
+int agora_rtm_presence_get_state(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *userId, uint64_t *requestId)
 {
     if (!this_ || !channelName || !userId || !requestId) {
         return -1;
@@ -58,7 +58,7 @@ int C_IRtmPresence_getState(C_IRtmPresence *this_, const char *channelName, enum
     return 0;
 }
 
-int C_IRtmPresence_getOnlineUsers(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_GetOnlineUsersOptions *options, uint64_t *requestId)
+int agora_rtm_presence_get_online_users(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_GetOnlineUsersOptions *options, uint64_t *requestId)
 {
     if (!this_ || !channelName || !options || !requestId) {
         return -1;
@@ -67,7 +67,7 @@ int C_IRtmPresence_getOnlineUsers(C_IRtmPresence *this_, const char *channelName
     return 0;
 }
 
-int C_IRtmPresence_getUserChannels(C_IRtmPresence *this_, const char *userId, uint64_t *requestId)
+int agora_rtm_presence_get_user_channels(C_IRtmPresence *this_, const char *userId, uint64_t *requestId)
 {
     if (!this_ || !userId || !requestId) {
         return -1;

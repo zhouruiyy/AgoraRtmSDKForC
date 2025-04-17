@@ -1,6 +1,8 @@
 #ifndef C_I_AGORA_STREAM_CHANNEL_H
 #define C_I_AGORA_STREAM_CHANNEL_H
 
+#include "agora_api.h"
+
 #include "C_AgoraRtmBase.h"
 
 #ifdef __cplusplus
@@ -137,7 +139,7 @@ extern "C"
    * @param [in] options join channel options.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IStreamChannel_join(C_IStreamChannel *this_, const struct C_JoinChannelOptions *options, uint64_t *requestId);
+  void agora_rtm_stream_channel_join(C_IStreamChannel *this_, const struct C_JoinChannelOptions *options, uint64_t *requestId);
 
   /**
    * Renews the token. Once a token is enabled and used, it expires after a certain period of time.
@@ -146,21 +148,21 @@ extern "C"
    * @param [in] token Token used renew.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IStreamChannel_renewToken(C_IStreamChannel *this_, const char *token, uint64_t *requestId);
+  void agora_rtm_stream_channel_renew_token(C_IStreamChannel *this_, const char *token, uint64_t *requestId);
 
   /**
    * Leave the channel.
    *
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IStreamChannel_leave(C_IStreamChannel *this_, uint64_t *requestId);
+  void agora_rtm_stream_channel_leave(C_IStreamChannel *this_, uint64_t *requestId);
 
   /**
    * Return the channel name of this stream channel.
    *
    * @return The channel name.
    */
-  const char *C_IStreamChannel_getChannelName(C_IStreamChannel *this_);
+  const char *agora_rtm_stream_channel_get_channel_name(C_IStreamChannel *this_);
 
   /**
    * Join a topic.
@@ -169,7 +171,7 @@ extern "C"
    * @param [in] options The options of the topic.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IStreamChannel_joinTopic(C_IStreamChannel *this_, const char *topic, const struct C_JoinTopicOptions *options, uint64_t *requestId);
+  void agora_rtm_stream_channel_join_topic(C_IStreamChannel *this_, const char *topic, const struct C_JoinTopicOptions *options, uint64_t *requestId);
 
   /**
    * Publish a message in the topic.
@@ -180,7 +182,7 @@ extern "C"
    * @param [in] option The option of the message.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IStreamChannel_publishTopicMessage(C_IStreamChannel *this_, const char *topic, const char *message, size_t length, const struct C_TopicMessageOptions *option, uint64_t *requestId);
+  void agora_rtm_stream_channel_publish_topic_message(C_IStreamChannel *this_, const char *topic, const char *message, size_t length, const struct C_TopicMessageOptions *option, uint64_t *requestId);
 
   /**
    * Leave the topic.
@@ -188,7 +190,7 @@ extern "C"
    * @param [in] topic The name of the topic.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IStreamChannel_leaveTopic(C_IStreamChannel *this_, const char *topic, uint64_t *requestId);
+  void agora_rtm_stream_channel_leave_topic(C_IStreamChannel *this_, const char *topic, uint64_t *requestId);
 
   /**
    * Subscribe a topic.
@@ -197,7 +199,7 @@ extern "C"
    * @param [in] options The options of subscribe the topic.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IStreamChannel_subscribeTopic(C_IStreamChannel *this_, const char *topic, const struct C_TopicOptions *options, uint64_t *requestId);
+  void agora_rtm_stream_channel_subscribe_topic(C_IStreamChannel *this_, const char *topic, const struct C_TopicOptions *options, uint64_t *requestId);
 
   /**
    * Unsubscribe a topic.
@@ -206,7 +208,7 @@ extern "C"
    * @param [in] options The options of unsubscribe the topic.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IStreamChannel_unsubscribeTopic(C_IStreamChannel *this_, const char *topic, const struct C_TopicOptions *options, uint64_t *requestId);
+  void agora_rtm_stream_channel_unsubscribe_topic(C_IStreamChannel *this_, const char *topic, const struct C_TopicOptions *options, uint64_t *requestId);
 
   /**
    * Get subscribed user list
@@ -214,7 +216,7 @@ extern "C"
    * @param [in] topic The name of the topic.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IStreamChannel_getSubscribedUserList(C_IStreamChannel *this_, const char *topic, uint64_t *requestId);
+  void agora_rtm_stream_channel_get_subscribed_user_list(C_IStreamChannel *this_, const char *topic, uint64_t *requestId);
 
   /**
    * Release the stream channel instance.
@@ -223,7 +225,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int C_IStreamChannel_release(C_IStreamChannel *this_);
+  int agora_rtm_stream_channel_release(C_IStreamChannel *this_);
 
 #pragma endregion C_IStreamChannel
 

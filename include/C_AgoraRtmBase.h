@@ -1442,6 +1442,33 @@ struct C_RtmPrivateConfig {
     size_t accessPointHostsCount;
 };
 
+struct C_HistoryMessage {
+  /**
+   * Message type
+   */
+  enum C_RTM_MESSAGE_TYPE messageType;
+  /**
+   * The publisher
+   */
+  const char* publisher;
+  /**
+   * The payload
+   */
+  const char* message;
+  /**
+   * The payload length
+   */
+  size_t messageLength;
+  /**
+   * The custom type of the message
+   */
+  const char* customType;
+  /**
+   * Timestamp of the message received by rtm server
+   */
+  uint64_t timestamp;
+};
+
 #pragma endregion agora::rtm
 
 #pragma endregion agora

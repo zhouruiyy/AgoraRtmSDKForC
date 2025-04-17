@@ -40,7 +40,7 @@ void C_Metadata_Delete(struct C_Metadata *this_)
 
 #pragma region C_IRtmStorage
 
-void C_IRtmStorage_setChannelMetadata(C_IRtmStorage *this_,
+void agora_rtm_storage_set_channel_metadata(C_IRtmStorage *this_,
                                      const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, const struct C_MetadataOptions *options, const char *lockName, uint64_t *requestId)
 {
   if (!this_ || !channelName || !data || !options || !requestId) {
@@ -49,7 +49,7 @@ void C_IRtmStorage_setChannelMetadata(C_IRtmStorage *this_,
   ((IRtmStorage *)this_)->setChannelMetadata(channelName, (RTM_CHANNEL_TYPE)channelType, *(const Metadata *)data, *(const MetadataOptions *)options, lockName, *requestId);
 }
 
-void C_IRtmStorage_updateChannelMetadata(C_IRtmStorage *this_,
+void agora_rtm_storage_update_channel_metadata(C_IRtmStorage *this_,
                                         const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, const struct C_MetadataOptions *options, const char *lockName, uint64_t *requestId)
 {
   if (!this_ || !channelName || !data || !options || !requestId) {
@@ -58,7 +58,7 @@ void C_IRtmStorage_updateChannelMetadata(C_IRtmStorage *this_,
   ((IRtmStorage *)this_)->updateChannelMetadata(channelName, (RTM_CHANNEL_TYPE)channelType, *(const Metadata *)data, *(const MetadataOptions *)options, lockName, *requestId);
 }
 
-void C_IRtmStorage_removeChannelMetadata(C_IRtmStorage *this_,
+void agora_rtm_storage_remove_channel_metadata(C_IRtmStorage *this_,
                                         const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, const struct C_MetadataOptions *options, const char *lockName, uint64_t *requestId)
 {
   if (!this_ || !channelName || !data || !options || !requestId) {
@@ -67,7 +67,7 @@ void C_IRtmStorage_removeChannelMetadata(C_IRtmStorage *this_,
   ((IRtmStorage *)this_)->removeChannelMetadata(channelName, (RTM_CHANNEL_TYPE)channelType, *(const Metadata *)data, *(const MetadataOptions *)options, lockName, *requestId);
 }
 
-void C_IRtmStorage_getChannelMetadata(C_IRtmStorage *this_,
+void agora_rtm_storage_get_channel_metadata(C_IRtmStorage *this_,
                                      const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, uint64_t *requestId)
 {
   if (!this_ || !channelName || !requestId) {
@@ -76,7 +76,7 @@ void C_IRtmStorage_getChannelMetadata(C_IRtmStorage *this_,
   ((IRtmStorage *)this_)->getChannelMetadata(channelName, (RTM_CHANNEL_TYPE)channelType, *requestId);
 }
 
-void C_IRtmStorage_setUserMetadata(C_IRtmStorage *this_,
+void agora_rtm_storage_set_user_metadata(C_IRtmStorage *this_,
                                   const char *userId, const struct C_Metadata *data, const struct C_MetadataOptions *options, uint64_t *requestId)
 {
   if (!this_ || !userId || !data || !options || !requestId) {
@@ -85,7 +85,7 @@ void C_IRtmStorage_setUserMetadata(C_IRtmStorage *this_,
   ((IRtmStorage *)this_)->setUserMetadata(userId, *(const Metadata *)data, *(const MetadataOptions *)options, *requestId);
 }
 
-void C_IRtmStorage_updateUserMetadata(C_IRtmStorage *this_,
+void agora_rtm_storage_update_user_metadata(C_IRtmStorage *this_,
                                      const char *userId, const struct C_Metadata *data, const struct C_MetadataOptions *options, uint64_t *requestId)
 {
   if (!this_ || !userId || !data || !options || !requestId) {
@@ -94,7 +94,7 @@ void C_IRtmStorage_updateUserMetadata(C_IRtmStorage *this_,
   ((IRtmStorage *)this_)->updateUserMetadata(userId, *(const Metadata *)data, *(const MetadataOptions *)options, *requestId);
 }
 
-void C_IRtmStorage_removeUserMetadata(C_IRtmStorage *this_,
+void agora_rtm_storage_remove_user_metadata(C_IRtmStorage *this_,
                                      const char *userId, const struct C_Metadata *data, const struct C_MetadataOptions *options, uint64_t *requestId)
 {
   if (!this_ || !userId || !data || !options || !requestId) {
@@ -103,7 +103,7 @@ void C_IRtmStorage_removeUserMetadata(C_IRtmStorage *this_,
   ((IRtmStorage *)this_)->removeUserMetadata(userId, *(const Metadata *)data, *(const MetadataOptions *)options, *requestId);
 }
 
-void C_IRtmStorage_getUserMetadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId)
+void agora_rtm_storage_get_user_metadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId)
 {
   if (!this_ || !userId || !requestId) {
     return;
@@ -111,7 +111,7 @@ void C_IRtmStorage_getUserMetadata(C_IRtmStorage *this_, const char *userId, uin
   ((IRtmStorage *)this_)->getUserMetadata(userId, *requestId);
 }
 
-void C_IRtmStorage_subscribeUserMetadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId)
+void agora_rtm_storage_subscribe_user_metadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId)
 {
   if (!this_ || !userId || !requestId) {
     return;
@@ -119,7 +119,7 @@ void C_IRtmStorage_subscribeUserMetadata(C_IRtmStorage *this_, const char *userI
   ((IRtmStorage *)this_)->subscribeUserMetadata(userId, *requestId);
 }
 
-void C_IRtmStorage_unsubscribeUserMetadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId)
+void agora_rtm_storage_unsubscribe_user_metadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId)
 {
   if (!this_ || !userId || !requestId) {
     return;

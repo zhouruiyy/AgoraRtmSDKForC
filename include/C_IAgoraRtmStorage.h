@@ -1,6 +1,8 @@
 #ifndef C_I_AGORA_RTM_STORAGE_H
 #define C_I_AGORA_RTM_STORAGE_H
 
+#include "agora_api.h"
+
 #include "C_AgoraRtmBase.h"
 
 #ifdef __cplusplus
@@ -85,7 +87,7 @@ extern "C"
    * @param [in] lock lock for operate channel metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IRtmStorage_setChannelMetadata(C_IRtmStorage *this_,
+  void agora_rtm_storage_set_channel_metadata(C_IRtmStorage *this_,
                                        const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, const struct C_MetadataOptions *options, const char *lockName, uint64_t *requestId);
   /**
    * Update the metadata of a specified channel.
@@ -97,7 +99,7 @@ extern "C"
    * @param [in] lock lock for operate channel metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IRtmStorage_updateChannelMetadata(C_IRtmStorage *this_,
+  void agora_rtm_storage_update_channel_metadata(C_IRtmStorage *this_,
                                           const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, const struct C_MetadataOptions *options, const char *lockName, uint64_t *requestId);
   /**
    * Remove the metadata of a specified channel.
@@ -109,7 +111,7 @@ extern "C"
    * @param [in] lock lock for operate channel metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IRtmStorage_removeChannelMetadata(C_IRtmStorage *this_,
+  void agora_rtm_storage_remove_channel_metadata(C_IRtmStorage *this_,
                                           const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, const struct C_MetadataOptions *options, const char *lockName, uint64_t *requestId);
   /**
    * Get the metadata of a specified channel.
@@ -118,7 +120,7 @@ extern "C"
    * @param [in] channelType Which channel type, RTM_CHANNEL_TYPE_STREAM or RTM_CHANNEL_TYPE_MESSAGE.
    * @param requestId The unique ID of this request.
    */
-  void C_IRtmStorage_getChannelMetadata(C_IRtmStorage *this_,
+  void agora_rtm_storage_get_channel_metadata(C_IRtmStorage *this_,
                                        const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, uint64_t *requestId);
 
   /**
@@ -129,7 +131,7 @@ extern "C"
    * @param [in] options The options of operate metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IRtmStorage_setUserMetadata(C_IRtmStorage *this_,
+  void agora_rtm_storage_set_user_metadata(C_IRtmStorage *this_,
                                     const char *userId, const struct C_Metadata *data, const struct C_MetadataOptions *options, uint64_t *requestId);
   /**
    * Update the metadata of a specified user.
@@ -139,7 +141,7 @@ extern "C"
    * @param [in] options The options of operate metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IRtmStorage_updateUserMetadata(C_IRtmStorage *this_,
+  void agora_rtm_storage_update_user_metadata(C_IRtmStorage *this_,
                                        const char *userId, const struct C_Metadata *data, const struct C_MetadataOptions *options, uint64_t *requestId);
   /**
    * Remove the metadata of a specified user.
@@ -149,7 +151,7 @@ extern "C"
    * @param [in] options The options of operate metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IRtmStorage_removeUserMetadata(C_IRtmStorage *this_,
+  void agora_rtm_storage_remove_user_metadata(C_IRtmStorage *this_,
                                        const char *userId, const struct C_Metadata *data, const struct C_MetadataOptions *options, uint64_t *requestId);
   /**
    * Get the metadata of a specified user.
@@ -157,7 +159,7 @@ extern "C"
    * @param [in] userId The user ID of the specified user.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IRtmStorage_getUserMetadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId);
+  void agora_rtm_storage_get_user_metadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId);
 
   /**
    * Subscribe the metadata update event of a specified user.
@@ -165,14 +167,14 @@ extern "C"
    * @param [in] userId The user ID of the specified user.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IRtmStorage_subscribeUserMetadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId);
+  void agora_rtm_storage_subscribe_user_metadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId);
   /**
    * unsubscribe the metadata update event of a specified user.
    *
    * @param [in] userId The user ID of the specified user.
    * @param [out] requestId The unique ID of this request.
    */
-  void C_IRtmStorage_unsubscribeUserMetadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId);
+  void agora_rtm_storage_unsubscribe_user_metadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId);
 #pragma endregion C_IRtmStorage
 
 #pragma endregion agora::rtm

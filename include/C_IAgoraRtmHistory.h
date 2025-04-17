@@ -8,16 +8,19 @@ extern "C"
 {
 #endif // __cplusplus
 
+// Get History Messages Options
+typedef struct {
+    int64_t start;
+    int64_t end;
+    int count;
+} C_GetHistoryMessagesOptions;
+
 #pragma region agora
 
 #pragma region agora::rtm
 
-/**
- * The IRtmHistory class.
- *
- * This class provides the rtm history methods that can be invoked by your app.
- */
 typedef void C_IRtmHistory;
+#pragma region C_IRtmHistory
 
 /**
  * Gets history messages in the channel.
@@ -30,7 +33,7 @@ typedef void C_IRtmHistory;
  * - 0: Success.
  * - < 0: Failure.
  */
-int C_IRtmHistory_getMessages(C_IRtmHistory *this_, const char* channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_GetHistoryMessagesOptions* options, uint64_t* requestId);
+int agora_rtm_history_get_messages(C_IRtmHistory *this_, const char* channelName, enum C_RTM_CHANNEL_TYPE channelType, const C_GetHistoryMessagesOptions* options, uint64_t* requestId);
 
 #pragma endregion agora::rtm
 

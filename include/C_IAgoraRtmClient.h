@@ -1,6 +1,8 @@
 #ifndef C_I_AGORA_RTM_CLIENT_H
 #define C_I_AGORA_RTM_CLIENT_H
 
+#include "agora_api.h"
+
 #include "C_IAgoraStreamChannel.h"
 #include "C_IAgoraRtmStorage.h"
 #include "C_IAgoraRtmPresence.h"
@@ -753,7 +755,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int C_IRtmClient_release(C_IRtmClient *this_);
+  int agora_rtm_client_release(C_IRtmClient *this_);
 
   /**
    * Login the Agora RTM service.
@@ -764,7 +766,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int C_IRtmClient_login(C_IRtmClient *this_, const char *token, uint64_t *requestId);
+  int agora_rtm_client_login(C_IRtmClient *this_, const char *token, uint64_t *requestId);
 
   /**
    * Logout the Agora RTM service.
@@ -774,7 +776,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int C_IRtmClient_logout(C_IRtmClient *this_, uint64_t *requestId);
+  int agora_rtm_client_logout(C_IRtmClient *this_, uint64_t *requestId);
 
   /**
    * Get the storage instance.
@@ -782,7 +784,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmStorage *C_IRtmClient_getStorage(C_IRtmClient *this_);
+  C_IRtmStorage *agora_rtm_client_getStorage(C_IRtmClient *this_);
 
   /**
    * Get the lock instance.
@@ -790,7 +792,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmLock *C_IRtmClient_getLock(C_IRtmClient *this_);
+  C_IRtmLock *agora_rtm_client_getLock(C_IRtmClient *this_);
 
   /**
    * Get the presence instance.
@@ -798,7 +800,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmPresence *C_IRtmClient_getPresence(C_IRtmClient *this_);
+  C_IRtmPresence *agora_rtm_client_getPresence(C_IRtmClient *this_);
 
   /**
    * Get the history instance.
@@ -806,7 +808,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmHistory *C_IRtmClient_getHistory(C_IRtmClient *this_);
+  C_IRtmHistory *agora_rtm_client_getHistory(C_IRtmClient *this_);
 
   /**
    * Renews the token.
@@ -817,7 +819,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int C_IRtmClient_renewToken(C_IRtmClient *this_, const char *token, uint64_t *requestId);
+  int agora_rtm_client_renewToken(C_IRtmClient *this_, const char *token, uint64_t *requestId);
 
   /**
    * Publish a message in the channel.
@@ -831,7 +833,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int C_IRtmClient_publish(C_IRtmClient *this_, const char *channelName, const char *message, const size_t length, const struct C_PublishOptions *option, uint64_t *requestId);
+  int agora_rtm_client_publish(C_IRtmClient *this_, const char *channelName, const char *message, const size_t length, const struct C_PublishOptions *option, uint64_t *requestId);
 
   /**
    * Subscribe a channel.
@@ -843,7 +845,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int C_IRtmClient_subscribe(C_IRtmClient *this_, const char *channelName, const struct C_SubscribeOptions *options, uint64_t *requestId);
+  int agora_rtm_client_subscribe(C_IRtmClient *this_, const char *channelName, const struct C_SubscribeOptions *options, uint64_t *requestId);
 
   /**
    * Unsubscribe a channel.
@@ -854,7 +856,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int C_IRtmClient_unsubscribe(C_IRtmClient *this_, const char *channelName, uint64_t *requestId);
+  int agora_rtm_client_unsubscribe(C_IRtmClient *this_, const char *channelName, uint64_t *requestId);
 
   /**
    * Create a stream channel instance.
@@ -864,7 +866,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IStreamChannel *C_IRtmClient_createStreamChannel(C_IRtmClient *this_, const char *channelName, int *errorCode);
+  C_IStreamChannel *agora_rtm_client_createStreamChannel(C_IRtmClient *this_, const char *channelName, int *errorCode);
 
   /**
    * Set parameters of the sdk or engine
@@ -874,7 +876,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int C_IRtmClient_setParameters(C_IRtmClient *this_, const char *parameters);
+  int agora_rtm_client_setParameters(C_IRtmClient *this_, const char *parameters);
 #pragma endregion C_IRtmClient
 
   /**
@@ -884,7 +886,7 @@ extern "C"
    * @param [out] errorCode The error code.
    * @return Pointer of the rtm client object.
    */
-  C_IRtmClient *C_createAgoraRtmClient(const struct C_RtmConfig *config, int *errorCode);
+  C_IRtmClient *agora_rtm_client_create(const struct C_RtmConfig *config, int *errorCode);
 
   /**
    * Convert error code to error string
@@ -892,14 +894,14 @@ extern "C"
    * @param [in] errorCode Received error code
    * @return The error reason
    */
-  const char *C_getErrorReason(int errorCode);
+  const char *agora_rtm_client_get_error_reason(int errorCode);
 
   /**
    * Get the version info of the Agora RTM SDK.
    *
    * @return The version info of the Agora RTM SDK.
    */
-  const char *C_getVersion();
+  const char *agora_rtm_client_get_version();
 
 #pragma endregion agora::rtm
 
