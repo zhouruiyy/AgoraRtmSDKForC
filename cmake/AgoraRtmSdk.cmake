@@ -1,7 +1,7 @@
 # AgoraRTM SDK
 include(ExternalProject)
 ExternalProject_Add(agora_rtm_sdk_download
-  URL               file:///home/zhourui/rtm/agora_rtm_sdk_c/Agora_RTM_C++_SDK_for_Linux_v2.2.4.zip
+  URL               file://${CMAKE_CURRENT_LIST_DIR}/../Agora_RTM_C++_SDK_for_Linux_v2.2.4.zip
   URL_HASH          MD5=40544932746f16945fbb31128eb0816f
   CONFIGURE_COMMAND ""
   BUILD_COMMAND     ""
