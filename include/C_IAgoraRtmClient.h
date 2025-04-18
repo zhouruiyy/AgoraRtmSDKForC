@@ -784,7 +784,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmStorage *agora_rtm_client_getStorage(C_IRtmClient *this_);
+  C_IRtmStorage *agora_rtm_client_get_storage(C_IRtmClient *this_);
 
   /**
    * Get the lock instance.
@@ -792,7 +792,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmLock *agora_rtm_client_getLock(C_IRtmClient *this_);
+  C_IRtmLock *agora_rtm_client_get_lock(C_IRtmClient *this_);
 
   /**
    * Get the presence instance.
@@ -800,7 +800,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmPresence *agora_rtm_client_getPresence(C_IRtmClient *this_);
+  C_IRtmPresence *agora_rtm_client_get_presence(C_IRtmClient *this_);
 
   /**
    * Get the history instance.
@@ -808,7 +808,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmHistory *agora_rtm_client_getHistory(C_IRtmClient *this_);
+  C_IRtmHistory *agora_rtm_client_get_history(C_IRtmClient *this_);
 
   /**
    * Renews the token.
@@ -819,7 +819,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_client_renewToken(C_IRtmClient *this_, const char *token, uint64_t *requestId);
+  int agora_rtm_client_renew_token(C_IRtmClient *this_, const char *token, uint64_t *requestId);
 
   /**
    * Publish a message in the channel.
@@ -866,7 +866,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IStreamChannel *agora_rtm_client_createStreamChannel(C_IRtmClient *this_, const char *channelName, int *errorCode);
+  C_IStreamChannel *agora_rtm_client_create_stream_channel(C_IRtmClient *this_, const char *channelName, int *errorCode);
 
   /**
    * Set parameters of the sdk or engine
@@ -876,7 +876,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_client_setParameters(C_IRtmClient *this_, const char *parameters);
+  int agora_rtm_client_set_parameters(C_IRtmClient *this_, const char *parameters);
 #pragma endregion C_IRtmClient
 
   /**
