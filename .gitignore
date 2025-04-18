@@ -49,7 +49,6 @@ build
 .vscode
 
 # bin
-libagora_rtm_sdk_c.a
 libagora_rtm_sdk_c.so
 
 # agora sdk
