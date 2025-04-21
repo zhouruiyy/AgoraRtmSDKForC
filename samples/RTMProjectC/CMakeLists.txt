@@ -34,7 +34,7 @@ endif()
 add_executable(${TARGET_NAME} ${SOURCES} ${HEADERS})
 
 if(APPLE)
-  target_link_libraries(${TARGET_NAME} agora_rtm_sdk_c AgoraRtmKit stdc++ pthread)
+  target_link_libraries(${TARGET_NAME} agora_rtm_sdk_c AgoraRtmKit aosl stdc++ pthread)
 else()
   target_link_libraries(${TARGET_NAME} agora_rtm_sdk_c stdc++ agora_rtm_sdk pthread aosl)
 endif()
