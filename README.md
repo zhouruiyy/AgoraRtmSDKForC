@@ -2,7 +2,7 @@
 
 Agora RTM SDK for C
 
-base on `Agora_RTM_C++_SDK_for_Linux_v2.1.12`
+base on `Agora_RTM_C++_SDK_for_Linux_v2.2.4` for Linux, `Agora_RTM_OC_SDK_v2.2.4` for Mac
 
 该项目通过重写头文件中的定义和代理调用的方式提供了C调用声网SDK的可能性。
 
@@ -13,7 +13,9 @@ base on `Agora_RTM_C++_SDK_for_Linux_v2.1.12`
 ## build
 
 ```sh
-cmake .
+mkdir build
+cd build
+cmake ..
 make
 ```
 
