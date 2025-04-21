@@ -179,7 +179,7 @@ void C_DemoMessaging_logout(C_DemoMessaging *this_)
     
     uint64_t requestId;
     int ret = agora_rtm_client_logout(this_->rtmClient_, &requestId);
-    printf(BOLDBLUE "logout ret: %d, requestId: %lu\n" RESET, ret, requestId);
+    printf(BOLDBLUE "logout ret: %d, requestId: %llu\n" RESET, ret, requestId);
 }
 
 // Subscribe to a channel
@@ -202,7 +202,7 @@ void C_DemoMessaging_subscribeChannel(C_DemoMessaging *this_, char *chnId)
     
     uint64_t requestId;
     int ret = agora_rtm_client_subscribe(this_->rtmClient_, chnId, opt, &requestId);
-    printf(BOLDBLUE "subscribe ret: %d, requestId: %lu\n" RESET, ret, requestId);
+    printf(BOLDBLUE "subscribe ret: %d, requestId: %llu\n" RESET, ret, requestId);
     
     C_SubscribeOptions_Delete(opt);
 }
@@ -217,7 +217,7 @@ void C_DemoMessaging_unsubscribeChannel(C_DemoMessaging *this_, char *chnId)
     
     uint64_t requestId;
     int ret = agora_rtm_client_unsubscribe(this_->rtmClient_, chnId, &requestId);
-    printf(BOLDBLUE "unsubscribe ret: %d, requestId: %lu\n" RESET, ret, requestId);
+    printf(BOLDBLUE "unsubscribe ret: %d, requestId: %llu\n" RESET, ret, requestId);
 }
 
 // Publish a message
@@ -239,7 +239,7 @@ void C_DemoMessaging_publishMessage(C_DemoMessaging *this_, char *chn, char *msg
     
     uint64_t requestId;
     int ret = agora_rtm_client_publish(this_->rtmClient_, chn, msg, strlen(msg), opt, &requestId);
-    printf(BOLDBLUE "publish ret: %d, requestId: %lu\n" RESET, ret, requestId);
+    printf(BOLDBLUE "publish ret: %d, requestId: %llu\n" RESET, ret, requestId);
     
     C_PublishOptions_Delete(opt);
 }
@@ -383,7 +383,7 @@ void C_DemoMessaging_login(C_DemoMessaging *this_)
         // 登录到RTM服务器
         uint64_t requestId;
         int ret = agora_rtm_client_login(this_->rtmClient_, TOKEN, &requestId);
-        printf(BOLDBLUE "login ret: %d, requestId: %lu\n" RESET, ret, requestId);
+        printf(BOLDBLUE "login ret: %d, requestId: %llu\n" RESET, ret, requestId);
         
         if (ret != 0) {
             continue; // 再次尝试登录
@@ -393,9 +393,15 @@ void C_DemoMessaging_login(C_DemoMessaging *this_)
         C_DemoMessaging_mainMenu(this_);
         
         printf(YELLOW "Quit? yes/no\n" RESET);
-        char input[256];
-        scanf("%256s", input);
-        getchar(); // 消耗换行符
+        char input[4];
+        // Use fgets for safer input, read sizeof(input)-1 chars to leave space for null terminator
+        if (fgets(input, sizeof(input), stdin) != NULL) {
+            // Remove trailing newline if present
+            input[strcspn(input, "\n")] = 0;
+        } else {
+            // Handle input error or EOF
+            input[0] = '\0'; // Ensure string is empty on error
+        }
         if (strcmp(input, "yes") == 0) {
             return;
         }

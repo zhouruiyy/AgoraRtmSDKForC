@@ -5,15 +5,36 @@ set(TARGET_NAME RTMQuickStartC)
 set(SOURCES RTMQuickStartC.c)
 set(HEADERS)
 set(TARGET_BUILD_TYPE "Debug")
-set(CMAKE_CXX_FLAGS "-fPIC -O2 -g -std=c++11 -msse2")
+
+# Common include directory
 include_directories(${CMAKE_SOURCE_DIR}/../../include)
 
-# 添加SDK库目录（首先使用下载的SDK库路径）
-link_directories(${CMAKE_SOURCE_DIR}/../../sdk_new/Agora_RTM_SDK_for_Linux_MINI_RTM/rtm/sdk)
-link_directories(${CMAKE_SOURCE_DIR}/../../build)
+if(APPLE)
+  # macOS specific settings
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -O2 -g -std=c++11")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -O2 -g")
 
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib:/home/zhourui/rtm/agora_rtm_sdk_c/sdk_new/Agora_RTM_SDK_for_Linux_MINI_RTM/rtm/sdk")
-set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+  include_directories(${CMAKE_SOURCE_DIR}/../../include)
+  include_directories(${CMAKE_SOURCE_DIR}/../../build/agora_rtm_sdk_download-prefix/src/agora_rtm_sdk_download/headers)
+  
+  link_directories(${CMAKE_SOURCE_DIR}/../../build)
+  link_directories(${CMAKE_SOURCE_DIR}/../../build/agora_rtm_sdk_download-prefix/src/agora_rtm_sdk_download/libs)
+
+  set(CMAKE_INSTALL_RPATH "@executable_path/../../../build/agora_rtm_sdk_download-prefix/src/agora_rtm_sdk_download/libs")
+  set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+else()
+  link_directories(${CMAKE_SOURCE_DIR}/../../build/agora_rtm_sdk_download-prefix/src/agora_rtm_sdk_download/rtm/sdk)
+  link_directories(${CMAKE_SOURCE_DIR}/../../build)
+
+  set(CMAKE_CXX_FLAGS "-fPIC -O2 -g -std=c++11 -msse2")
+  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib:${CMAKE_SOURCE_DIR}/../../build/agora_rtm_sdk_download-prefix/src/agora_rtm_sdk_download/rtm/sdk")
+  set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+endif()
 
 add_executable(${TARGET_NAME} ${SOURCES} ${HEADERS})
-target_link_libraries(${TARGET_NAME} agora_rtm_sdk_c stdc++ agora_rtm_sdk pthread aosl)
+
+if(APPLE)
+  target_link_libraries(${TARGET_NAME} agora_rtm_sdk_c AgoraRtmKit stdc++ pthread)
+else()
+  target_link_libraries(${TARGET_NAME} agora_rtm_sdk_c stdc++ agora_rtm_sdk pthread aosl)
+endif()
