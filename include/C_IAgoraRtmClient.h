@@ -492,6 +492,7 @@ extern "C"
   /**
    * Occurs when user login.
    *
+   * @param requestId The related request id when user perform this operation
    * @param errorCode The error code.
    */
   void C_IRtmEventHandler_onLoginResult(C_IRtmEventHandler *this_, const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
