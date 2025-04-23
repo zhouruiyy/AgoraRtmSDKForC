@@ -275,6 +275,41 @@ void C_IRtmEventHandler_onPresenceGetStateResult(C_IRtmEventHandler *this_, cons
     ((IRtmEventHandler *)this_)->onPresenceGetStateResult(requestId, *(const UserState *)state, (RTM_ERROR_CODE)errorCode);
 }
 
+void C_IRtmEventHandler_onLogoutResult(C_IRtmEventHandler *this_, const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode)
+{
+    ((IRtmEventHandler *)this_)->onLogoutResult(requestId, (RTM_ERROR_CODE)errorCode);
+}
+
+void C_IRtmEventHandler_onRenewTokenResult(C_IRtmEventHandler *this_, const uint64_t requestId, enum C_RTM_SERVICE_TYPE serverType, const char *channelName, enum C_RTM_ERROR_CODE errorCode)
+{
+    ((IRtmEventHandler *)this_)->onRenewTokenResult(requestId, (RTM_SERVICE_TYPE)serverType, channelName, (RTM_ERROR_CODE)errorCode);
+}
+
+void C_IRtmEventHandler_onPublishTopicMessageResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *topic, enum C_RTM_ERROR_CODE errorCode)
+{
+    ((IRtmEventHandler *)this_)->onPublishTopicMessageResult(requestId, channelName, topic, (RTM_ERROR_CODE)errorCode);
+}
+
+void C_IRtmEventHandler_onUnsubscribeTopicResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *topic, enum C_RTM_ERROR_CODE errorCode)
+{
+    ((IRtmEventHandler *)this_)->onUnsubscribeTopicResult(requestId, channelName, topic, (RTM_ERROR_CODE)errorCode);
+}
+
+void C_IRtmEventHandler_onGetSubscribedUserListResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *topic, struct C_UserList users, enum C_RTM_ERROR_CODE errorCode)
+{
+    ((IRtmEventHandler *)this_)->onGetSubscribedUserListResult(requestId, channelName, topic, *(UserList *)&users, (RTM_ERROR_CODE)errorCode);
+}
+
+void C_IRtmEventHandler_onUnsubscribeUserMetadataResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode)
+{
+    ((IRtmEventHandler *)this_)->onUnsubscribeUserMetadataResult(requestId, userId, (RTM_ERROR_CODE)errorCode);
+}
+
+void C_IRtmEventHandler_onGetHistoryMessagesResult(C_IRtmEventHandler *this_, const uint64_t requestId, const struct C_HistoryMessage *messageList, const size_t count, const uint64_t newStart, enum C_RTM_ERROR_CODE errorCode)
+{
+    ((IRtmEventHandler *)this_)->onGetHistoryMessagesResult(requestId, (const HistoryMessage *)messageList, count, newStart, (RTM_ERROR_CODE)errorCode);
+}
+
 #pragma endregion C_IRtmEventHandler
 
 #pragma region C_IRtmClient

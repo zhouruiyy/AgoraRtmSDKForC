@@ -9,8 +9,15 @@ set(CMAKE_CXX_STANDARD 11)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(AgoraRtmSdk)
 
-# this project
-add_library(${PROJECT_NAME} SHARED)
+# Set library type based on platform
+if(APPLE)
+  # Use STATIC for macOS to avoid linking issues
+  add_library(${PROJECT_NAME} STATIC)
+else()
+  # Use SHARED for Linux
+  add_library(${PROJECT_NAME} SHARED)
+endif()
+
 target_include_directories(${PROJECT_NAME} PUBLIC "./include")
 aux_source_directory(./src SRCS)
 aux_source_directory(./src/bridge BRIDGE_SRCS)
