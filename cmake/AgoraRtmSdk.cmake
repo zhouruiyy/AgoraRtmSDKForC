@@ -18,15 +18,18 @@ ExternalProject_Add(agora_rtm_sdk_download
   )
 ExternalProject_Get_Property(agora_rtm_sdk_download SOURCE_DIR)
 if (APPLE)
+  set(AGORA_SDK_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/agora_rtm_sdk_download-prefix/src/agora_rtm_sdk_download/libs)
+  file(MAKE_DIRECTORY ${AGORA_SDK_OUTPUT_DIR})
+  set(AGORA_RTM_SDK_LIB_DIR ${AGORA_SDK_OUTPUT_DIR})
+  set(AGORA_RTM_DYLIB_PATH "${AGORA_SDK_OUTPUT_DIR}/libAgoraRtmKit.dylib")
   add_custom_command(
     TARGET agora_rtm_sdk_download POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}
     python3 ${CMAKE_CURRENT_SOURCE_DIR}/cmake/framework_to_dylib.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Converting xcframework to dylib..."
+    ALWAYS 1
   )
-
-  set(AGORA_RTM_SDK_LIB_DIR ${AGORA_SDK_OUTPUT_DIR})
   set(AGORA_RTM_SDK_INCLUDE_DIR ${SOURCE_DIR}/headers)
   set(CMAKE_C_COMPILER "/usr/bin/clang")
   set(CMAKE_OBJC_COMPILER "/usr/bin/clang")
@@ -38,6 +41,7 @@ if (APPLE)
 else()
   set(AGORA_RTM_SDK_LIB_DIR ${SOURCE_DIR}/rtm/sdk)
   set(AGORA_RTM_SDK_INCLUDE_DIR ${SOURCE_DIR}/rtm/sdk/high_level_api/include)
+  set(AGORA_RTM_SO_PATH ${AGORA_RTM_SDK_LIB_DIR}/libagora_rtm_sdk.so)
 endif()
 unset(SOURCE_DIR)
 
@@ -46,8 +50,9 @@ add_dependencies(agora_rtm_sdk agora_rtm_sdk_download)
 file(MAKE_DIRECTORY ${AGORA_RTM_SDK_INCLUDE_DIR})
 set_property(TARGET agora_rtm_sdk PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${AGORA_RTM_SDK_INCLUDE_DIR})
 if (APPLE)
-  set_property(TARGET agora_rtm_sdk PROPERTY IMPORTED_LOCATION ${AGORA_RTM_SDK_LIB_DIR}/libAgoraRtmKit.dylib)
+  message(STATUS "Setting agora_rtm_sdk IMPORTED_LOCATION to: ${AGORA_RTM_DYLIB_PATH}")
+  set_property(TARGET agora_rtm_sdk PROPERTY IMPORTED_LOCATION "${AGORA_RTM_DYLIB_PATH}")
 else()
-  set_property(TARGET agora_rtm_sdk PROPERTY IMPORTED_LOCATION ${AGORA_RTM_SDK_LIB_DIR}/libagora_rtm_sdk.so)
+  set_property(TARGET agora_rtm_sdk PROPERTY IMPORTED_LOCATION ${AGORA_RTM_SO_PATH})
 endif()
 set_property(TARGET agora_rtm_sdk PROPERTY IMPORTED_NO_SONAME TRUE)
