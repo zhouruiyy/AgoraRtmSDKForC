@@ -4,7 +4,7 @@ void RtmEventHandlerBridge::onMessageEvent(const MessageEvent &event)
 {
     if (cbs_.onMessageEvent != nullptr)
     {
-        return cbs_.onMessageEvent(this, this->userData_, (const C_MessageEvent *)&event);
+        return cbs_.onMessageEvent(this, this->userData_, (const message_event *)&event);
     }
 }
 
@@ -12,7 +12,7 @@ void RtmEventHandlerBridge::onPresenceEvent(const PresenceEvent &event)
 {
     if (cbs_.onPresenceEvent != nullptr)
     {
-        return cbs_.onPresenceEvent(this, this->userData_, (const C_PresenceEvent *)&event);
+        return cbs_.onPresenceEvent(this, this->userData_, (const presence_event *)&event);
     }
 }
 
@@ -20,7 +20,7 @@ void RtmEventHandlerBridge::onTopicEvent(const TopicEvent &event)
 {
     if (cbs_.onTopicEvent != nullptr)
     {
-        return cbs_.onTopicEvent(this, this->userData_, (const C_TopicEvent *)&event);
+        return cbs_.onTopicEvent(this, this->userData_, (const topic_event *)&event);
     }
 }
 
@@ -28,7 +28,7 @@ void RtmEventHandlerBridge::onLockEvent(const LockEvent &event)
 {
     if (cbs_.onLockEvent != nullptr)
     {
-        return cbs_.onLockEvent(this, this->userData_, (const C_LockEvent *)&event);
+        return cbs_.onLockEvent(this, this->userData_, (const lock_event *)&event);
     }
 }
 
@@ -36,7 +36,7 @@ void RtmEventHandlerBridge::onStorageEvent(const StorageEvent &event)
 {
     if (cbs_.onStorageEvent != nullptr)
     {
-        return cbs_.onStorageEvent(this, this->userData_, (const C_StorageEvent *)&event);
+        return cbs_.onStorageEvent(this, this->userData_, (const storage_event *)&event);
     }
 }
 
@@ -76,7 +76,7 @@ void RtmEventHandlerBridge::onSubscribeTopicResult(const uint64_t requestId, con
 {
     if (cbs_.onSubscribeTopicResult != nullptr)
     {
-        return cbs_.onSubscribeTopicResult(this, this->userData_, requestId, channelName, userId, topic, *(C_UserList *)&succeedUsers, *((C_UserList *)&failedUsers), (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onSubscribeTopicResult(this, this->userData_, requestId, channelName, userId, topic, *(user_list *)&succeedUsers, *(user_list *)&failedUsers, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 
@@ -148,7 +148,7 @@ void RtmEventHandlerBridge::onGetChannelMetadataResult(const uint64_t requestId,
 {
     if (cbs_.onGetChannelMetadataResult != nullptr)
     {
-        return cbs_.onGetChannelMetadataResult(this, this->userData_, requestId, channelName, (C_RTM_CHANNEL_TYPE)channelType, (const C_Metadata *)&data, (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onGetChannelMetadataResult(this, this->userData_, requestId, channelName, (C_RTM_CHANNEL_TYPE)channelType, (const metadata *)&data, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 
@@ -180,7 +180,7 @@ void RtmEventHandlerBridge::onGetUserMetadataResult(const uint64_t requestId, co
 {
     if (cbs_.onGetUserMetadataResult != nullptr)
     {
-        return cbs_.onGetUserMetadataResult(this, this->userData_, requestId, userId, (const C_Metadata *)&data, (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onGetUserMetadataResult(this, this->userData_, requestId, userId, (const metadata *)&data, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 
@@ -236,7 +236,7 @@ void RtmEventHandlerBridge::onGetLocksResult(const uint64_t requestId, const cha
 {
     if (cbs_.onGetLocksResult != nullptr)
     {
-        return cbs_.onGetLocksResult(this, this->userData_, requestId, channelName, (C_RTM_CHANNEL_TYPE)channelType, (const C_LockDetail *)lockDetailList, count, (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onGetLocksResult(this, this->userData_, requestId, channelName, (C_RTM_CHANNEL_TYPE)channelType, (const lock_detail *)lockDetailList, count, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 
@@ -244,7 +244,7 @@ void RtmEventHandlerBridge::onWhoNowResult(const uint64_t requestId, const UserS
 {
     if (cbs_.onWhoNowResult != nullptr)
     {
-        return cbs_.onWhoNowResult(this, this->userData_, requestId, (const C_UserState *)userStateList, count, nextPage, (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onWhoNowResult(this, this->userData_, requestId, (const user_state *)userStateList, count, nextPage, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 
@@ -252,7 +252,7 @@ void RtmEventHandlerBridge::onGetOnlineUsersResult(const uint64_t requestId, con
 {
     if (cbs_.onGetOnlineUsersResult != nullptr)
     {
-        return cbs_.onGetOnlineUsersResult(this, this->userData_, requestId, (const C_UserState *)userStateList, count, nextPage, (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onGetOnlineUsersResult(this, this->userData_, requestId, (const user_state *)userStateList, count, nextPage, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 
@@ -260,7 +260,7 @@ void RtmEventHandlerBridge::onWhereNowResult(const uint64_t requestId, const Cha
 {
     if (cbs_.onWhereNowResult != nullptr)
     {
-        return cbs_.onWhereNowResult(this, this->userData_, requestId, (const C_ChannelInfo *)channels, count, (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onWhereNowResult(this, this->userData_, requestId, (const channel_info *)channels, count, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 
@@ -268,7 +268,7 @@ void RtmEventHandlerBridge::onGetUserChannelsResult(const uint64_t requestId, co
 {
     if (cbs_.onGetUserChannelsResult != nullptr)
     {
-        return cbs_.onGetUserChannelsResult(this, this->userData_, requestId, (const C_ChannelInfo *)channels, count, (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onGetUserChannelsResult(this, this->userData_, requestId, (const channel_info *)channels, count, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 
@@ -292,7 +292,7 @@ void RtmEventHandlerBridge::onPresenceGetStateResult(const uint64_t requestId, c
 {
     if (cbs_.onPresenceGetStateResult != nullptr)
     {
-        return cbs_.onPresenceGetStateResult(this, this->userData_, requestId, (const C_UserState *)&state, (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onPresenceGetStateResult(this, this->userData_, requestId, (const user_state *)&state, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 
@@ -300,7 +300,7 @@ void RtmEventHandlerBridge::onLinkStateEvent(const LinkStateEvent &event)
 {
     if (cbs_.onLinkStateEvent != nullptr)
     {
-        return cbs_.onLinkStateEvent(this, this->userData_, (const C_LinkStateEvent *)&event);
+        return cbs_.onLinkStateEvent(this, this->userData_, (const link_state_event *)&event);
     }
 }
 
@@ -340,7 +340,7 @@ void RtmEventHandlerBridge::onGetSubscribedUserListResult(const uint64_t request
 {
     if (cbs_.onGetSubscribedUserListResult != nullptr)
     {
-        return cbs_.onGetSubscribedUserListResult(this, this->userData_, requestId, channelName, topic, *(C_UserList*)&users, (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onGetSubscribedUserListResult(this, this->userData_, requestId, channelName, topic, *(user_list *)&users, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 
@@ -348,7 +348,7 @@ void RtmEventHandlerBridge::onGetHistoryMessagesResult(const uint64_t requestId,
 {
     if (cbs_.onGetHistoryMessagesResult != nullptr)
     {
-        return cbs_.onGetHistoryMessagesResult(this, this->userData_, requestId, (const C_HistoryMessage *)messageList, count, newStart, (C_RTM_ERROR_CODE)errorCode);
+        return cbs_.onGetHistoryMessagesResult(this, this->userData_, requestId, (const history_message *)messageList, count, newStart, (C_RTM_ERROR_CODE)errorCode);
     }
 }
 

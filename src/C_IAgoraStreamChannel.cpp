@@ -10,123 +10,123 @@ using namespace agora::rtm;
 #pragma region agora
 
 #pragma region agora::rtm
-struct C_JoinChannelOptions *C_JoinChannelOptions_New()
+join_channel_options *join_channel_options_create()
 {
-  return (C_JoinChannelOptions *)new JoinChannelOptions();
+  return (join_channel_options *)new JoinChannelOptions();
 }
-void C_JoinChannelOptions_Delete(struct C_JoinChannelOptions *this_)
+void join_channel_options_delete(join_channel_options *this_)
 {
   delete (JoinChannelOptions *)this_;
 }
 
-struct C_JoinTopicOptions *C_JoinTopicOptions_New()
+join_topic_options *join_topic_options_create()
 {
-  return (C_JoinTopicOptions *)new JoinTopicOptions();
+  return (join_topic_options *)new JoinTopicOptions();
 }
-void C_JoinTopicOptions_Delete(struct C_JoinTopicOptions *this_)
+void join_topic_options_delete(join_topic_options *this_)
 {
   delete (JoinTopicOptions *)this_;
 }
 
-struct C_TopicOptions *C_TopicOptions_New()
+topic_options *topic_options_create()
 {
-  return (C_TopicOptions *)new TopicOptions();
+  return (topic_options *)new TopicOptions();
 }
-void C_TopicOptions_Delete(struct C_TopicOptions *this_)
+void topic_options_delete(topic_options *this_)
 {
   delete (TopicOptions *)this_;
 }
 
-#pragma region C_IStreamChannel
-void agora_rtm_stream_channel_join(C_IStreamChannel *this_, const struct C_JoinChannelOptions *options, uint64_t *requestId)
+#pragma region agora_rtm_stream_channel
+AGORA_RTM_API_C_VOID agora_rtm_stream_channel_join(AGORA_RTM_HANDLE agora_rtm_stream_channel, const join_channel_options *options, uint64_t *requestId)
 {
-  if (!this_ || !options || !requestId) {
+  if (!agora_rtm_stream_channel || !options || !requestId) {
     return;
   }
-  ((IStreamChannel *)this_)->join(*(const JoinChannelOptions *)options, *requestId);
+  ((IStreamChannel *)agora_rtm_stream_channel)->join(*(const JoinChannelOptions *)options, *requestId);
 }
 
-void agora_rtm_stream_channel_renew_token(C_IStreamChannel *this_, const char *token, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_stream_channel_renew_token(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *token, uint64_t *requestId)
 {
-  if (!this_ || !token || !requestId) {
+  if (!agora_rtm_stream_channel || !token || !requestId) {
     return;
   }
-  ((IStreamChannel *)this_)->renewToken(token, *requestId);
+  ((IStreamChannel *)agora_rtm_stream_channel)->renewToken(token, *requestId);
 }
 
-void agora_rtm_stream_channel_leave(C_IStreamChannel *this_, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_stream_channel_leave(AGORA_RTM_HANDLE agora_rtm_stream_channel, uint64_t *requestId)
 {
-  if (!this_ || !requestId) {
+  if (!agora_rtm_stream_channel || !requestId) {
     return;
   }
-  ((IStreamChannel *)this_)->leave(*requestId);
+  ((IStreamChannel *)agora_rtm_stream_channel)->leave(*requestId);
 }
 
-const char *agora_rtm_stream_channel_get_channel_name(C_IStreamChannel *this_)
+AGORA_RTM_API_C_LITERAL agora_rtm_stream_channel_get_channel_name(AGORA_RTM_HANDLE agora_rtm_stream_channel)
 {
-  if (!this_) {
+  if (!agora_rtm_stream_channel) {
     return NULL;
   }
-  return ((IStreamChannel *)this_)->getChannelName();
+  return ((IStreamChannel *)agora_rtm_stream_channel)->getChannelName();
 }
 
-void agora_rtm_stream_channel_join_topic(C_IStreamChannel *this_, const char *topic, const struct C_JoinTopicOptions *options, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_stream_channel_join_topic(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, const join_topic_options *options, uint64_t *requestId)
 {
-  if (!this_ || !topic || !options || !requestId) {
+  if (!agora_rtm_stream_channel || !topic || !options || !requestId) {
     return;
   }
-  ((IStreamChannel *)this_)->joinTopic(topic, *(const JoinTopicOptions *)options, *requestId);
+  ((IStreamChannel *)agora_rtm_stream_channel)->joinTopic(topic, *(const JoinTopicOptions *)options, *requestId);
 }
 
-void agora_rtm_stream_channel_publish_topic_message(C_IStreamChannel *this_, const char *topic, const char *message, size_t length, const struct C_TopicMessageOptions *option, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_stream_channel_publish_topic_message(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, const char *message, size_t length, const topic_message_options *option, uint64_t *requestId)
 {
-  if (!this_ || !topic || !message || !option || !requestId) {
+  if (!agora_rtm_stream_channel || !topic || !message || !option || !requestId) {
     return;
   }
-  ((IStreamChannel *)this_)->publishTopicMessage(topic, message, length, *(const TopicMessageOptions *)option, *requestId);
+  ((IStreamChannel *)agora_rtm_stream_channel)->publishTopicMessage(topic, message, length, *(const TopicMessageOptions *)option, *requestId);
 }
 
-void agora_rtm_stream_channel_leave_topic(C_IStreamChannel *this_, const char *topic, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_stream_channel_leave_topic(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, uint64_t *requestId)
 {
-  if (!this_ || !topic || !requestId) {
+  if (!agora_rtm_stream_channel || !topic || !requestId) {
     return;
   }
-  ((IStreamChannel *)this_)->leaveTopic(topic, *requestId);
+  ((IStreamChannel *)agora_rtm_stream_channel)->leaveTopic(topic, *requestId);
 }
 
-void agora_rtm_stream_channel_subscribe_topic(C_IStreamChannel *this_, const char *topic, const struct C_TopicOptions *options, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_stream_channel_subscribe_topic(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, const topic_options *options, uint64_t *requestId)
 {
-  if (!this_ || !topic || !options || !requestId) {
+  if (!agora_rtm_stream_channel || !topic || !options || !requestId) {
     return;
   }
-  ((IStreamChannel *)this_)->subscribeTopic(topic, *(const TopicOptions *)options, *requestId);
+  ((IStreamChannel *)agora_rtm_stream_channel)->subscribeTopic(topic, *(const TopicOptions *)options, *requestId);
 }
 
-void agora_rtm_stream_channel_unsubscribe_topic(C_IStreamChannel *this_, const char *topic, const struct C_TopicOptions *options, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_stream_channel_unsubscribe_topic(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, const topic_options *options, uint64_t *requestId)
 {
-  if (!this_ || !topic || !options || !requestId) {
+  if (!agora_rtm_stream_channel || !topic || !options || !requestId) {
     return;
   }
-  ((IStreamChannel *)this_)->unsubscribeTopic(topic, *(const TopicOptions *)options, *requestId);
+  ((IStreamChannel *)agora_rtm_stream_channel)->unsubscribeTopic(topic, *(const TopicOptions *)options, *requestId);
 }
 
-void agora_rtm_stream_channel_get_subscribed_user_list(C_IStreamChannel *this_, const char *topic, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_stream_channel_get_subscribed_user_list(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, uint64_t *requestId)
 {
-  if (!this_ || !topic || !requestId) {
+  if (!agora_rtm_stream_channel || !topic || !requestId) {
     return;
   }
-  ((IStreamChannel *)this_)->getSubscribedUserList(topic, *requestId);
+  ((IStreamChannel *)agora_rtm_stream_channel)->getSubscribedUserList(topic, *requestId);
 }
 
-int agora_rtm_stream_channel_release(C_IStreamChannel *this_)
+AGORA_RTM_API_C_INT agora_rtm_stream_channel_release(AGORA_RTM_HANDLE agora_rtm_stream_channel)
 {
-  if (!this_) {
+  if (!agora_rtm_stream_channel) {
     return -1;
   }
-  return ((IStreamChannel *)this_)->release();
+  return ((IStreamChannel *)agora_rtm_stream_channel)->release();
 }
 
-#pragma endregion C_IStreamChannel
+#pragma endregion agora_rtm_stream_channel
 
 #pragma endregion agora::rtm
 

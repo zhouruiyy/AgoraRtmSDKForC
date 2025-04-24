@@ -19,7 +19,7 @@ extern "C"
      * @param event details of message event.
      */
     typedef void (*C_RtmEventHandlerBridge_onMessageEvent)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                           const struct C_MessageEvent *event);
+                                                           const message_event *event);
 
     /**
      * Occurs when remote user presence changed
@@ -27,7 +27,7 @@ extern "C"
      * @param event details of presence event.
      */
     typedef void (*C_RtmEventHandlerBridge_onPresenceEvent)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                            const struct C_PresenceEvent *event);
+                                                            const presence_event *event);
 
     /**
      * Occurs when remote user join/leave topic or when user first join this channel,
@@ -36,7 +36,7 @@ extern "C"
      * @param event details of topic event.
      */
     typedef void (*C_RtmEventHandlerBridge_onTopicEvent)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                         const struct C_TopicEvent *event);
+                                                         const topic_event *event);
 
     /**
      * Occurs when lock state changed
@@ -44,7 +44,7 @@ extern "C"
      * @param event details of lock event.
      */
     typedef void (*C_RtmEventHandlerBridge_onLockEvent)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                        const struct C_LockEvent *event);
+                                                        const lock_event *event);
 
     /**
      * Occurs when receive storage event
@@ -52,7 +52,7 @@ extern "C"
      * @param event details of storage event.
      */
     typedef void (*C_RtmEventHandlerBridge_onStorageEvent)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                           const struct C_StorageEvent *event);
+                                                           const storage_event *event);
 
     /**
      * Occurs when user join a stream channel.
@@ -62,7 +62,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onJoinResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                         const uint64_t requestId, const char *channelName, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+                                                         const uint64_t requestId, const char *channelName, const char *userId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user leave a stream channel.
@@ -72,7 +72,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onLeaveResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                          const uint64_t requestId, const char *channelName, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+                                                          const uint64_t requestId, const char *channelName, const char *userId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user join topic.
@@ -84,7 +84,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onJoinTopicResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                              const uint64_t requestId, const char *channelName, const char *userId, const char *topic, const char *meta, enum C_RTM_ERROR_CODE errorCode);
+                                                              const uint64_t requestId, const char *channelName, const char *userId, const char *topic, const char *meta, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user leave topic.
@@ -96,7 +96,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onLeaveTopicResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                               const uint64_t requestId, const char *channelName, const char *userId, const char *topic, const char *meta, enum C_RTM_ERROR_CODE errorCode);
+                                                               const uint64_t requestId, const char *channelName, const char *userId, const char *topic, const char *meta, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user subscribe topic.
@@ -109,7 +109,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onSubscribeTopicResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                   const uint64_t requestId, const char *channelName, const char *userId, const char *topic, struct C_UserList succeedUsers, struct C_UserList failedUsers, enum C_RTM_ERROR_CODE errorCode);
+                                                                   const uint64_t requestId, const char *channelName, const char *userId, const char *topic, user_list succeedUsers, user_list failedUsers, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when the connection state changes between rtm sdk and agora service.
@@ -119,7 +119,7 @@ extern "C"
      * @param reason The reason for the connection state change.
      */
     typedef void (*C_RtmEventHandlerBridge_onConnectionStateChanged)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                     const char *channelName, enum C_RTM_CONNECTION_STATE state, enum C_RTM_CONNECTION_CHANGE_REASON reason);
+                                                                     const char *channelName, C_RTM_CONNECTION_STATE state, C_RTM_CONNECTION_CHANGE_REASON reason);
 
     /**
      * Occurs when token will expire in 30 seconds.
@@ -136,7 +136,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onSubscribeResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                              const uint64_t requestId, const char *channelName, enum C_RTM_ERROR_CODE errorCode);
+                                                              const uint64_t requestId, const char *channelName, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user publish message.
@@ -145,7 +145,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onPublishResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                            const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
+                                                            const uint64_t requestId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user login.
@@ -154,7 +154,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onLoginResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                          const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
+                                                          const uint64_t requestId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user setting the channel metadata
@@ -165,7 +165,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onSetChannelMetadataResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                       const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, enum C_RTM_ERROR_CODE errorCode);
+                                                                       const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user updating the channel metadata
@@ -176,7 +176,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onUpdateChannelMetadataResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                          const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, enum C_RTM_ERROR_CODE errorCode);
+                                                                          const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user removing the channel metadata
@@ -187,7 +187,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onRemoveChannelMetadataResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                          const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, enum C_RTM_ERROR_CODE errorCode);
+                                                                          const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user try to get the channel metadata
@@ -199,7 +199,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onGetChannelMetadataResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                       const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, enum C_RTM_ERROR_CODE errorCode);
+                                                                       const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const metadata *data, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user setting the user metadata
@@ -209,7 +209,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onSetUserMetadataResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                    const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+                                                                    const uint64_t requestId, const char *userId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user updating the user metadata
@@ -219,7 +219,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onUpdateUserMetadataResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                       const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+                                                                       const uint64_t requestId, const char *userId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user removing the user metadata
@@ -229,7 +229,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onRemoveUserMetadataResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                       const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+                                                                       const uint64_t requestId, const char *userId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user try to get the user metadata
@@ -240,7 +240,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onGetUserMetadataResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                    const uint64_t requestId, const char *userId, const struct C_Metadata *data, enum C_RTM_ERROR_CODE errorCode);
+                                                                    const uint64_t requestId, const char *userId, const metadata *data, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user subscribe a user metadata
@@ -249,7 +249,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onSubscribeUserMetadataResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                          const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+                                                                          const uint64_t requestId, const char *userId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user set a lock
@@ -260,7 +260,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onSetLockResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                            const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, enum C_RTM_ERROR_CODE errorCode);
+                                                            const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const char *lockName, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user delete a lock
@@ -271,7 +271,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onRemoveLockResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                               const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, enum C_RTM_ERROR_CODE errorCode);
+                                                               const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const char *lockName, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user release a lock
@@ -282,7 +282,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onReleaseLockResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, enum C_RTM_ERROR_CODE errorCode);
+                                                                const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const char *lockName, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user acquire a lock
@@ -293,7 +293,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onAcquireLockResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, enum C_RTM_ERROR_CODE errorCode, const char *errorDetails);
+                                                                const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const char *lockName, C_RTM_ERROR_CODE errorCode, const char *errorDetails);
 
     /**
      * Occurs when user revoke a lock
@@ -304,7 +304,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onRevokeLockResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                               const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, enum C_RTM_ERROR_CODE errorCode);
+                                                               const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const char *lockName, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user try to get locks from the channel
@@ -316,7 +316,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onGetLocksResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                             const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_LockDetail *lockDetailList, const size_t count, enum C_RTM_ERROR_CODE errorCode);
+                                                             const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const lock_detail *lockDetailList, const size_t count, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when query who joined this channel
@@ -327,7 +327,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onWhoNowResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                           const uint64_t requestId, const struct C_UserState *userStateList, const size_t count, const char *nextPage, enum C_RTM_ERROR_CODE errorCode);
+                                                           const uint64_t requestId, const user_state *userStateList, const size_t count, const char *nextPage, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when query who joined this channel
@@ -338,7 +338,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onGetOnlineUsersResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                   const uint64_t requestId, const struct C_UserState *userStateList, const size_t count, const char *nextPage, enum C_RTM_ERROR_CODE errorCode);
+                                                                   const uint64_t requestId, const user_state *userStateList, const size_t count, const char *nextPage, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when query which channels the user joined
@@ -349,7 +349,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onWhereNowResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                             const uint64_t requestId, const struct C_ChannelInfo *channels, const size_t count, enum C_RTM_ERROR_CODE errorCode);
+                                                             const uint64_t requestId, const channel_info *channels, const size_t count, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when query which channels the user joined
@@ -360,7 +360,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onGetUserChannelsResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                    const uint64_t requestId, const struct C_ChannelInfo *channels, const size_t count, enum C_RTM_ERROR_CODE errorCode);
+                                                                    const uint64_t requestId, const channel_info *channels, const size_t count, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when set user presence
@@ -369,7 +369,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onPresenceSetStateResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                     const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
+                                                                     const uint64_t requestId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when delete user presence
@@ -378,7 +378,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onPresenceRemoveStateResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                        const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
+                                                                        const uint64_t requestId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when get user presence
@@ -388,7 +388,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onPresenceGetStateResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                     const uint64_t requestId, const struct C_UserState *state, enum C_RTM_ERROR_CODE errorCode);
+                                                                     const uint64_t requestId, const user_state *state, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when link state change
@@ -396,7 +396,7 @@ extern "C"
      * @param event details of link state event
      */
     typedef void (*C_RtmEventHandlerBridge_onLinkStateEvent)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                             const struct C_LinkStateEvent *event);
+                                                             const link_state_event *event);
 
     /**
      * Occurs when user logout.
@@ -405,7 +405,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onLogoutResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                           const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
+                                                           const uint64_t requestId, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user renew token.
@@ -416,7 +416,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onRenewTokenResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                               const uint64_t requestId, enum C_RTM_SERVICE_TYPE serverType, const char *channelName, enum C_RTM_ERROR_CODE errorCode);
+                                                               const uint64_t requestId, C_RTM_SERVICE_TYPE serverType, const char *channelName, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user publish topic message.
@@ -427,7 +427,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onPublishTopicMessageResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                      const uint64_t requestId, const char *channelName, const char *topic, enum C_RTM_ERROR_CODE errorCode);
+                                                                      const uint64_t requestId, const char *channelName, const char *topic, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user call unsubscribe topic.
@@ -438,7 +438,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onUnsubscribeTopicResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                    const uint64_t requestId, const char *channelName, const char *topic, enum C_RTM_ERROR_CODE errorCode);
+                                                                    const uint64_t requestId, const char *channelName, const char *topic, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user call get subscribe user list.
@@ -450,7 +450,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onGetSubscribedUserListResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                         const uint64_t requestId, const char *channelName, const char *topic, struct C_UserList users, enum C_RTM_ERROR_CODE errorCode);
+                                                                         const uint64_t requestId, const char *channelName, const char *topic, user_list users, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when query history messages
@@ -462,7 +462,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onGetHistoryMessagesResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                      const uint64_t requestId, const struct C_HistoryMessage *messageList, const size_t count, const uint64_t newStart, enum C_RTM_ERROR_CODE errorCode);
+                                                                      const uint64_t requestId, const history_message *messageList, const size_t count, const uint64_t newStart, C_RTM_ERROR_CODE errorCode);
 
     /**
      * Occurs when user unsubscribe a user metadata
@@ -472,7 +472,7 @@ extern "C"
      * @param errorCode The error code.
      */
     typedef void (*C_RtmEventHandlerBridge_onUnsubscribeUserMetadataResult)(C_RtmEventHandlerBridge *this_, void *userData,
-                                                                           const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+                                                                           const uint64_t requestId, const char *userId, C_RTM_ERROR_CODE errorCode);
 
     typedef struct C_RtmEventHandlerBridge_Callbacks
     {

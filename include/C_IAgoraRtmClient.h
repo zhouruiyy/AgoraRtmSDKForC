@@ -1,7 +1,7 @@
 #ifndef C_I_AGORA_RTM_CLIENT_H
 #define C_I_AGORA_RTM_CLIENT_H
 
-#include "agora_api.h"
+#include "agora_rtm_api.h"
 
 #include "C_IAgoraStreamChannel.h"
 #include "C_IAgoraRtmStorage.h"
@@ -24,7 +24,7 @@ extern "C"
   /**
    *  Configurations for RTM Client.
    */
-  struct C_RtmConfig
+  typedef struct _rtm_config
   {
     /**
      * The App ID of your project.
@@ -45,12 +45,12 @@ extern "C"
      * After specifying the region, the SDK connects to the Agora servers within
      * that region.
      */
-    enum C_RTM_AREA_CODE areaCode;
+    C_RTM_AREA_CODE areaCode;
 
     /**
      * The protocol used for connecting to the Agora RTM service.
      */
-    enum C_RTM_PROTOCOL_TYPE protocolType;
+    C_RTM_PROTOCOL_TYPE protocolType;
 
     /**
      * Presence timeout in seconds, specify the timeout value when you lost connection between sdk
@@ -90,48 +90,48 @@ extern "C"
     /**
      * The config for customer set log path, log size and log level.
      */
-    struct C_RtmLogConfig logConfig;
+    rtm_log_config logConfig;
 
     /**
      * The config for proxy setting
      */
-    struct C_RtmProxyConfig proxyConfig;
+    rtm_proxy_config proxyConfig;
 
     /**
      * The config for encryption setting
      */
-    struct C_RtmEncryptionConfig encryptionConfig;
+    rtm_encryption_config encryptionConfig;
 
     /**
      * The config for private setting
      */
-    struct C_RtmPrivateConfig privateConfig;
-  };
-  struct C_RtmConfig *C_RtmConfig_New();
-  void C_RtmConfig_Delete(struct C_RtmConfig *this_);
+    rtm_private_config privateConfig;
+  } rtm_config;
+  rtm_config *rtm_config_create();
+  void rtm_config_delete(rtm_config *this_);
 
-  struct C_LinkStateEvent
+  typedef struct _link_state_event
   {
     /**
      * The current link state
      */
-    enum C_RTM_LINK_STATE currentState;
+    C_RTM_LINK_STATE currentState;
     /**
      * The previous link state
      */
-    enum C_RTM_LINK_STATE previousState;
+    C_RTM_LINK_STATE previousState;
     /**
      * The service type
      */
-    enum C_RTM_SERVICE_TYPE serviceType;
+    C_RTM_SERVICE_TYPE serviceType;
     /**
      * The operation which trigger this event
      */
-    enum C_RTM_LINK_OPERATION operation;
+    C_RTM_LINK_OPERATION operation;
     /**
      * The reason code of this state change event
      */
-    enum C_RTM_LINK_STATE_CHANGE_REASON reasonCode;
+    C_RTM_LINK_STATE_CHANGE_REASON reasonCode;
     /**
      * The reason of this state change event
      */
@@ -160,9 +160,9 @@ extern "C"
      * RTM server UTC time
      */
     uint64_t timestamp;
-  };
-  struct C_LinkStateEvent *C_LinkStateEvent_New();
-  void C_LinkStateEvent_Delete(struct C_LinkStateEvent *this_);
+  } link_state_event;
+  link_state_event *link_state_event_create();
+  void link_state_event_delete(link_state_event *this_);
 
   /**
    * The IRtmEventHandler class.
@@ -175,16 +175,16 @@ extern "C"
    * time-consuming tasks or calling blocking APIs, otherwise the SDK may not work properly.
    */
 #pragma region C_IRtmEventHandler
-  struct C_MessageEvent
+  typedef struct _message_event
   {
     /**
      * Which channel type, RTM_CHANNEL_TYPE_STREAM or RTM_CHANNEL_TYPE_MESSAGE
      */
-    enum C_RTM_CHANNEL_TYPE channelType;
+    C_RTM_CHANNEL_TYPE channelType;
     /**
      * Message type
      */
-    enum C_RTM_MESSAGE_TYPE messageType;
+    C_RTM_MESSAGE_TYPE messageType;
     /**
      * The channel which the message was published
      */
@@ -209,60 +209,60 @@ extern "C"
      * The custom type of the message
      */
     const char *customType;
-  };
-  struct C_MessageEvent *C_MessageEvent_New();
-  void C_MessageEvent_Delete(struct C_MessageEvent *this_);
+  } message_event;
+  message_event *message_event_create();
+  void message_event_delete(message_event *this_);
 
-  struct C_IntervalInfo
+  typedef struct _interval_info
   {
     /**
      * Joined users during this interval
      */
-    struct C_UserList joinUserList;
+    user_list joinUserList;
     /**
      * Left users during this interval
      */
-    struct C_UserList leaveUserList;
+    user_list leaveUserList;
     /**
      * Timeout users during this interval
      */
-    struct C_UserList timeoutUserList;
+    user_list timeoutUserList;
     /**
      * The user state changed during this interval
      */
-    struct C_UserState *userStateList;
+    user_state *userStateList;
     /**
      * The user count
      */
     size_t userStateCount;
-  };
-  struct C_IntervalInfo *C_IntervalInfo_New();
-  void C_IntervalInfo_Delete(struct C_IntervalInfo *this_);
+  } interval_info;
+  interval_info *interval_info_create();
+  void interval_info_delete(interval_info *this_);
 
-  struct C_SnapshotInfo
+  typedef struct _snapshot_info
   {
     /**
      * The user state in this snapshot event
      */
-    struct C_UserState *userStateList;
+    user_state *userStateList;
     /**
      * The user count
      */
     size_t userCount;
-  };
-  struct C_SnapshotInfo *C_SnapshotInfo_New();
-  void C_SnapshotInfo_Delete(struct C_SnapshotInfo *this_);
+  } snapshot_info;
+  snapshot_info *snapshot_info_create();
+  void snapshot_info_delete(snapshot_info *this_);
 
-  struct C_PresenceEvent
+  typedef struct _presence_event
   {
     /**
      * Indicate presence event type
      */
-    enum C_RTM_PRESENCE_EVENT_TYPE type;
+    C_RTM_PRESENCE_EVENT_TYPE type;
     /**
      * Which channel type, RTM_CHANNEL_TYPE_STREAM or RTM_CHANNEL_TYPE_MESSAGE
      */
-    enum C_RTM_CHANNEL_TYPE channelType;
+    C_RTM_CHANNEL_TYPE channelType;
     /**
      * The channel which the presence event was triggered
      */
@@ -274,7 +274,7 @@ extern "C"
     /**
      * The user states
      */
-    const struct C_StateItem *stateItems;
+    state_item *stateItems;
     /**
      * The states count
      */
@@ -282,21 +282,21 @@ extern "C"
     /**
      * Only valid when in interval mode
      */
-    struct C_IntervalInfo interval;
+    interval_info interval;
     /**
      * Only valid when receive snapshot event
      */
-    struct C_SnapshotInfo snapshot;
-  };
-  struct C_PresenceEvent *C_PresenceEvent_New();
-  void C_PresenceEvent_Delete(struct C_PresenceEvent *this_);
+    snapshot_info snapshot;
+  } presence_event;
+  presence_event *presence_event_create();
+  void presence_event_delete(presence_event *this_);
 
-  struct C_TopicEvent
+  typedef struct _topic_event
   {
     /**
      * Indicate topic event type
      */
-    enum C_RTM_TOPIC_EVENT_TYPE type;
+    C_RTM_TOPIC_EVENT_TYPE type;
     /**
      * The channel which the topic event was triggered
      */
@@ -308,25 +308,25 @@ extern "C"
     /**
      * Topic information array.
      */
-    const struct C_TopicInfo *topicInfos;
+    topic_info *topicInfos;
     /**
      * The count of topicInfos.
      */
     size_t topicInfoCount;
-  };
-  struct C_TopicEvent *C_TopicEvent_New();
-  void C_TopicEvent_Delete(struct C_TopicEvent *this_);
+  } topic_event;
+  topic_event *topic_event_create();
+  void topic_event_delete(topic_event *this_);
 
-  struct C_LockEvent
+  typedef struct _lock_event
   {
     /**
      * Which channel type, RTM_CHANNEL_TYPE_STREAM or RTM_CHANNEL_TYPE_MESSAGE
      */
-    enum C_RTM_CHANNEL_TYPE channelType;
+    C_RTM_CHANNEL_TYPE channelType;
     /**
      * Lock event type, indicate lock states
      */
-    enum C_RTM_LOCK_EVENT_TYPE eventType;
+    C_RTM_LOCK_EVENT_TYPE eventType;
     /**
      * The channel which the lock event was triggered
      */
@@ -334,29 +334,29 @@ extern "C"
     /**
      * The detail information of locks
      */
-    const struct C_LockDetail *lockDetailList;
+    lock_detail *lockDetailList;
     /**
      * The count of locks
      */
     size_t count;
-  };
-  struct C_LockEvent *C_LockEvent_New();
-  void C_LockEvent_Delete(struct C_LockEvent *this_);
+  } lock_event;
+  lock_event *lock_event_create();
+  void lock_event_delete(lock_event *this_);
 
-  struct C_StorageEvent
+  typedef struct _storage_event
   {
     /**
      * Which channel type, RTM_CHANNEL_TYPE_STREAM or RTM_CHANNEL_TYPE_MESSAGE
      */
-    enum C_RTM_CHANNEL_TYPE channelType;
+    C_RTM_CHANNEL_TYPE channelType;
     /**
      * Storage type, RTM_STORAGE_TYPE_USER or RTM_STORAGE_TYPE_CHANNEL
      */
-    enum C_RTM_STORAGE_TYPE storageType;
+    C_RTM_STORAGE_TYPE storageType;
     /**
      * Indicate storage event type
      */
-    enum C_RTM_STORAGE_EVENT_TYPE eventType;
+    C_RTM_STORAGE_EVENT_TYPE eventType;
     /**
      * The target name of user or channel, depends on the RTM_STORAGE_TYPE
      */
@@ -364,24 +364,24 @@ extern "C"
     /**
      * The metadata information
      */
-    struct C_Metadata *data;
-  };
-  struct C_StorageEvent *C_StorageEvent_New();
-  void C_StorageEvent_Delete(struct C_StorageEvent *this_);
+    metadata *data;
+  } storage_event;
+  storage_event *storage_event_create();
+  void storage_event_delete(storage_event *this_);
 
   /**
    * Occurs when receive a message.
    *
    * @param event details of message event.
    */
-  void C_IRtmEventHandler_onMessageEvent(C_IRtmEventHandler *this_, const struct C_MessageEvent *event);
+  void C_IRtmEventHandler_onMessageEvent(C_IRtmEventHandler *this_, const message_event *event);
 
   /**
    * Occurs when remote user presence changed
    *
    * @param event details of presence event.
    */
-  void C_IRtmEventHandler_onPresenceEvent(C_IRtmEventHandler *this_, const struct C_PresenceEvent *event);
+  void C_IRtmEventHandler_onPresenceEvent(C_IRtmEventHandler *this_, const presence_event *event);
 
   /**
    * Occurs when remote user join/leave topic or when user first join this channel,
@@ -389,21 +389,21 @@ extern "C"
    *
    * @param event details of topic event.
    */
-  void C_IRtmEventHandler_onTopicEvent(C_IRtmEventHandler *this_, const struct C_TopicEvent *event);
+  void C_IRtmEventHandler_onTopicEvent(C_IRtmEventHandler *this_, const topic_event *event);
 
   /**
    * Occurs when lock state changed
    *
    * @param event details of lock event.
    */
-  void C_IRtmEventHandler_onLockEvent(C_IRtmEventHandler *this_, const struct C_LockEvent *event);
+  void C_IRtmEventHandler_onLockEvent(C_IRtmEventHandler *this_, const lock_event *event);
 
   /**
    * Occurs when receive storage event
    *
    * @param event details of storage event.
    */
-  void C_IRtmEventHandler_onStorageEvent(C_IRtmEventHandler *this_, const struct C_StorageEvent *event);
+  void C_IRtmEventHandler_onStorageEvent(C_IRtmEventHandler *this_, const storage_event *event);
 
   /**
    * Occurs when user join a stream channel.
@@ -412,7 +412,7 @@ extern "C"
    * @param userId The id of the user.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onJoinResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onJoinResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *userId, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user leave a stream channel.
@@ -421,7 +421,7 @@ extern "C"
    * @param userId The id of the user.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onLeaveResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onLeaveResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *userId, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user join topic.
@@ -432,7 +432,7 @@ extern "C"
    * @param meta The meta of the topic.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onJoinTopicResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *userId, const char *topic, const char *meta, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onJoinTopicResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *userId, const char *topic, const char *meta, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user leave topic.
@@ -443,7 +443,7 @@ extern "C"
    * @param meta The meta of the topic.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onLeaveTopicResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *userId, const char *topic, const char *meta, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onLeaveTopicResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *userId, const char *topic, const char *meta, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user subscribe topic.
@@ -455,7 +455,7 @@ extern "C"
    * @param failedUser The failed to subscribe users.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onSubscribeTopicResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *userId, const char *topic, struct C_UserList succeedUsers, struct C_UserList failedUsers, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onSubscribeTopicResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *userId, const char *topic, user_list succeedUsers, user_list failedUsers, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when the connection state changes between rtm sdk and agora service.
@@ -464,7 +464,7 @@ extern "C"
    * @param state The new connection state.
    * @param reason The reason for the connection state change.
    */
-  void C_IRtmEventHandler_onConnectionStateChanged(C_IRtmEventHandler *this_, const char *channelName, enum C_RTM_CONNECTION_STATE state, enum C_RTM_CONNECTION_CHANGE_REASON reason);
+  void C_IRtmEventHandler_onConnectionStateChanged(C_IRtmEventHandler *this_, const char *channelName, C_RTM_CONNECTION_STATE state, C_RTM_CONNECTION_CHANGE_REASON reason);
 
   /**
    * Occurs when token will expire in 30 seconds.
@@ -479,7 +479,7 @@ extern "C"
    * @param channelName The name of the channel.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onSubscribeResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onSubscribeResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user publish message.
@@ -487,15 +487,14 @@ extern "C"
    * @param requestId The related request id when user publish message
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onPublishResult(C_IRtmEventHandler *this_, const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onPublishResult(C_IRtmEventHandler *this_, const uint64_t requestId, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user login.
    *
-   * @param requestId The related request id when user perform this operation
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onLoginResult(C_IRtmEventHandler *this_, const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onLoginResult(C_IRtmEventHandler *this_, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user setting the channel metadata
@@ -506,7 +505,7 @@ extern "C"
    * @param errorCode The error code.
    */
   void C_IRtmEventHandler_onSetChannelMetadataResult(C_IRtmEventHandler *this_,
-                                                     const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, enum C_RTM_ERROR_CODE errorCode);
+                                                     const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user updating the channel metadata
@@ -517,7 +516,7 @@ extern "C"
    * @param errorCode The error code.
    */
   void C_IRtmEventHandler_onUpdateChannelMetadataResult(C_IRtmEventHandler *this_,
-                                                        const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, enum C_RTM_ERROR_CODE errorCode);
+                                                        const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user removing the channel metadata
@@ -528,7 +527,7 @@ extern "C"
    * @param errorCode The error code.
    */
   void C_IRtmEventHandler_onRemoveChannelMetadataResult(C_IRtmEventHandler *this_,
-                                                        const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, enum C_RTM_ERROR_CODE errorCode);
+                                                        const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user try to get the channel metadata
@@ -540,7 +539,7 @@ extern "C"
    * @param errorCode The error code.
    */
   void C_IRtmEventHandler_onGetChannelMetadataResult(C_IRtmEventHandler *this_,
-                                                     const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, enum C_RTM_ERROR_CODE errorCode);
+                                                     const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const metadata *data, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user setting the user metadata
@@ -550,7 +549,7 @@ extern "C"
    * @param errorCode The error code.
    */
   void C_IRtmEventHandler_onSetUserMetadataResult(C_IRtmEventHandler *this_,
-                                                  const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+                                                  const uint64_t requestId, const char *userId, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user updating the user metadata
@@ -560,7 +559,7 @@ extern "C"
    * @param errorCode The error code.
    */
   void C_IRtmEventHandler_onUpdateUserMetadataResult(C_IRtmEventHandler *this_,
-                                                     const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+                                                     const uint64_t requestId, const char *userId, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user removing the user metadata
@@ -570,7 +569,7 @@ extern "C"
    * @param errorCode The error code.
    */
   void C_IRtmEventHandler_onRemoveUserMetadataResult(C_IRtmEventHandler *this_,
-                                                     const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+                                                     const uint64_t requestId, const char *userId, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user try to get the user metadata
@@ -581,7 +580,7 @@ extern "C"
    * @param errorCode The error code.
    */
   void C_IRtmEventHandler_onGetUserMetadataResult(C_IRtmEventHandler *this_,
-                                                  const uint64_t requestId, const char *userId, const struct C_Metadata *data, enum C_RTM_ERROR_CODE errorCode);
+                                                  const uint64_t requestId, const char *userId, const metadata *data, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user subscribe a user metadata
@@ -589,7 +588,7 @@ extern "C"
    * @param userId The id of the user.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onSubscribeUserMetadataResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onSubscribeUserMetadataResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *userId, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user set a lock
@@ -599,7 +598,7 @@ extern "C"
    * @param lockName The name of the lock.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onSetLockResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onSetLockResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const char *lockName, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user delete a lock
@@ -609,7 +608,7 @@ extern "C"
    * @param lockName The name of the lock.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onRemoveLockResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onRemoveLockResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const char *lockName, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user release a lock
@@ -619,7 +618,7 @@ extern "C"
    * @param lockName The name of the lock.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onReleaseLockResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onReleaseLockResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const char *lockName, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user acquire a lock
@@ -629,7 +628,7 @@ extern "C"
    * @param lockName The name of the lock.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onAcquireLockResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, enum C_RTM_ERROR_CODE errorCode, const char *errorDetails);
+  void C_IRtmEventHandler_onAcquireLockResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const char *lockName, C_RTM_ERROR_CODE errorCode, const char *errorDetails);
 
   /**
    * Occurs when user revoke a lock
@@ -639,7 +638,7 @@ extern "C"
    * @param lockName The name of the lock.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onRevokeLockResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onRevokeLockResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const char *lockName, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user try to get locks from the channel
@@ -650,7 +649,7 @@ extern "C"
    * @param count The count of the locks.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onGetLocksResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_LockDetail *lockDetailList, const size_t count, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onGetLocksResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, C_RTM_CHANNEL_TYPE channelType, const lock_detail *lockDetailList, const size_t count, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when query who joined this channel
@@ -660,7 +659,7 @@ extern "C"
    * @param count The user count.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onWhoNowResult(C_IRtmEventHandler *this_, const uint64_t requestId, const struct C_UserState *userStateList, const size_t count, const char *nextPage, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onWhoNowResult(C_IRtmEventHandler *this_, const uint64_t requestId, const user_state *userStateList, const size_t count, const char *nextPage, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when query who joined this channel
@@ -670,7 +669,7 @@ extern "C"
    * @param count The user count.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onGetOnlineUsersResult(C_IRtmEventHandler *this_, const uint64_t requestId, const struct C_UserState *userStateList, const size_t count, const char *nextPage, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onGetOnlineUsersResult(C_IRtmEventHandler *this_, const uint64_t requestId, const user_state *userStateList, const size_t count, const char *nextPage, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when query which channels the user joined
@@ -680,7 +679,7 @@ extern "C"
    * @param count The channel count.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onWhereNowResult(C_IRtmEventHandler *this_, const uint64_t requestId, const struct C_ChannelInfo *channels, const size_t count, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onWhereNowResult(C_IRtmEventHandler *this_, const uint64_t requestId, const channel_info *channels, const size_t count, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when query which channels the user joined
@@ -690,7 +689,7 @@ extern "C"
    * @param count The channel count.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onGetUserChannelsResult(C_IRtmEventHandler *this_, const uint64_t requestId, const struct C_ChannelInfo *channels, const size_t count, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onGetUserChannelsResult(C_IRtmEventHandler *this_, const uint64_t requestId, const channel_info *channels, const size_t count, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when set user presence
@@ -698,7 +697,7 @@ extern "C"
    * @param requestId The related request id when user perform this operation
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onPresenceSetStateResult(C_IRtmEventHandler *this_, const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onPresenceSetStateResult(C_IRtmEventHandler *this_, const uint64_t requestId, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when delete user presence
@@ -706,7 +705,7 @@ extern "C"
    * @param requestId The related request id when user perform this operation
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onPresenceRemoveStateResult(C_IRtmEventHandler *this_, const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onPresenceRemoveStateResult(C_IRtmEventHandler *this_, const uint64_t requestId, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when get user presence
@@ -715,14 +714,14 @@ extern "C"
    * @param states The user states
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onPresenceGetStateResult(C_IRtmEventHandler *this_, const uint64_t requestId, const struct C_UserState *state, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onPresenceGetStateResult(C_IRtmEventHandler *this_, const uint64_t requestId, const user_state *state, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when link state change
    *
    * @param event details of link state event
    */
-  void C_IRtmEventHandler_onLinkStateEvent(C_IRtmEventHandler *this_, const struct C_LinkStateEvent *event);
+  void C_IRtmEventHandler_onLinkStateEvent(C_IRtmEventHandler *this_, const link_state_event *event);
 
   /**
    * Occurs when get history messages
@@ -733,7 +732,7 @@ extern "C"
    * @param newStart The timestamp of next history message. If newStart is 0, means there are no more history messages
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onGetHistoryMessagesResult(C_IRtmEventHandler *this_, const uint64_t requestId, const struct C_HistoryMessage *messageList, const size_t count, const uint64_t newStart, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onGetHistoryMessagesResult(C_IRtmEventHandler *this_, const uint64_t requestId, const history_message *messageList, const size_t count, const uint64_t newStart, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user logout
@@ -741,7 +740,7 @@ extern "C"
    * @param requestId The related request id when user perform this operation
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onLogoutResult(C_IRtmEventHandler *this_, const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onLogoutResult(C_IRtmEventHandler *this_, const uint64_t requestId, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user renew token
@@ -751,7 +750,7 @@ extern "C"
    * @param channelName The name of the channel.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onRenewTokenResult(C_IRtmEventHandler *this_, const uint64_t requestId, enum C_RTM_SERVICE_TYPE serverType, const char *channelName, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onRenewTokenResult(C_IRtmEventHandler *this_, const uint64_t requestId, C_RTM_SERVICE_TYPE serverType, const char *channelName, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user publish topic message
@@ -761,7 +760,7 @@ extern "C"
    * @param topic The name of the topic.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onPublishTopicMessageResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *topic, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onPublishTopicMessageResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *topic, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user unsubscribe topic
@@ -771,7 +770,7 @@ extern "C"
    * @param topic The name of the topic.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onUnsubscribeTopicResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *topic, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onUnsubscribeTopicResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *topic, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user get subscribed user list
@@ -782,7 +781,7 @@ extern "C"
    * @param users The subscribed user list.
    * @param errorCode The error code.
    */
-  void C_IRtmEventHandler_onGetSubscribedUserListResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *topic, struct C_UserList users, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onGetSubscribedUserListResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *channelName, const char *topic, user_list users, C_RTM_ERROR_CODE errorCode);
 
   /**
    * Occurs when user unsubscribe user metadata
@@ -791,7 +790,7 @@ extern "C"
    * @param userId The id of the user.
    * @param errorCode The error code.
    */ 
-  void C_IRtmEventHandler_onUnsubscribeUserMetadataResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *userId, enum C_RTM_ERROR_CODE errorCode);
+  void C_IRtmEventHandler_onUnsubscribeUserMetadataResult(C_IRtmEventHandler *this_, const uint64_t requestId, const char *userId, C_RTM_ERROR_CODE errorCode);
   
 #pragma endregion C_IRtmEventHandler
 
@@ -804,8 +803,7 @@ extern "C"
    * Creating an IRtmClient object and then calling the methods of
    * this object enables you to use Agora RTM SDK's functionality.
    */
-  typedef void C_IRtmClient;
-#pragma region C_IRtmClient
+#pragma region agora_rtm_client
 
   /**
    * Release the rtm client instance.
@@ -814,7 +812,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_client_release(C_IRtmClient *this_);
+  AGORA_RTM_API_C_INT agora_rtm_client_release(AGORA_RTM_HANDLE agora_rtm_client);
 
   /**
    * Login the Agora RTM service.
@@ -825,7 +823,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_client_login(C_IRtmClient *this_, const char *token, uint64_t *requestId);
+  AGORA_RTM_API_C_INT agora_rtm_client_login(AGORA_RTM_HANDLE agora_rtm_client, const char *token, uint64_t *requestId);
 
   /**
    * Logout the Agora RTM service.
@@ -835,7 +833,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_client_logout(C_IRtmClient *this_, uint64_t *requestId);
+  AGORA_RTM_API_C_INT agora_rtm_client_logout(AGORA_RTM_HANDLE agora_rtm_client, uint64_t *requestId);
 
   /**
    * Get the storage instance.
@@ -843,7 +841,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmStorage *agora_rtm_client_get_storage(C_IRtmClient *this_);
+  AGORA_RTM_API_C_HDL agora_rtm_client_get_storage(AGORA_RTM_HANDLE agora_rtm_client);
 
   /**
    * Get the lock instance.
@@ -851,7 +849,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmLock *agora_rtm_client_get_lock(C_IRtmClient *this_);
+  AGORA_RTM_API_C_HDL agora_rtm_client_get_lock(AGORA_RTM_HANDLE agora_rtm_client);
 
   /**
    * Get the presence instance.
@@ -859,7 +857,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmPresence *agora_rtm_client_get_presence(C_IRtmClient *this_);
+  AGORA_RTM_API_C_HDL agora_rtm_client_get_presence(AGORA_RTM_HANDLE agora_rtm_client);
 
   /**
    * Get the history instance.
@@ -867,7 +865,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IRtmHistory *agora_rtm_client_get_history(C_IRtmClient *this_);
+  AGORA_RTM_API_C_HDL agora_rtm_client_get_history(AGORA_RTM_HANDLE agora_rtm_client);
 
   /**
    * Renews the token.
@@ -878,7 +876,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_client_renew_token(C_IRtmClient *this_, const char *token, uint64_t *requestId);
+  AGORA_RTM_API_C_INT agora_rtm_client_renew_token(AGORA_RTM_HANDLE agora_rtm_client, const char *token, uint64_t *requestId);
 
   /**
    * Publish a message in the channel.
@@ -892,7 +890,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_client_publish(C_IRtmClient *this_, const char *channelName, const char *message, const size_t length, const struct C_PublishOptions *option, uint64_t *requestId);
+  AGORA_RTM_API_C_INT agora_rtm_client_publish(AGORA_RTM_HANDLE agora_rtm_client, const char *channelName, const char *message, const size_t length, const publish_options *option, uint64_t *requestId);
 
   /**
    * Subscribe a channel.
@@ -904,7 +902,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_client_subscribe(C_IRtmClient *this_, const char *channelName, const struct C_SubscribeOptions *options, uint64_t *requestId);
+  AGORA_RTM_API_C_INT agora_rtm_client_subscribe(AGORA_RTM_HANDLE agora_rtm_client, const char *channelName, const subscribe_options *options, uint64_t *requestId);
 
   /**
    * Unsubscribe a channel.
@@ -915,7 +913,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_client_unsubscribe(C_IRtmClient *this_, const char *channelName, uint64_t *requestId);
+  AGORA_RTM_API_C_INT agora_rtm_client_unsubscribe(AGORA_RTM_HANDLE agora_rtm_client, const char *channelName, uint64_t *requestId);
 
   /**
    * Create a stream channel instance.
@@ -925,7 +923,7 @@ extern "C"
    * @return
    * - return NULL if error occurred
    */
-  C_IStreamChannel *agora_rtm_client_create_stream_channel(C_IRtmClient *this_, const char *channelName, int *errorCode);
+  AGORA_RTM_API_C_HDL agora_rtm_client_create_stream_channel(AGORA_RTM_HANDLE agora_rtm_client, const char *channelName, int *errorCode);
 
   /**
    * Set parameters of the sdk or engine
@@ -935,8 +933,8 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_client_set_parameters(C_IRtmClient *this_, const char *parameters);
-#pragma endregion C_IRtmClient
+  AGORA_RTM_API_C_INT agora_rtm_client_set_parameters(AGORA_RTM_HANDLE agora_rtm_client, const char *parameters);
+#pragma endregion agora_rtm_client
 
   /**
    * Creates the rtm client object and returns the pointer.
@@ -945,7 +943,7 @@ extern "C"
    * @param [out] errorCode The error code.
    * @return Pointer of the rtm client object.
    */
-  C_IRtmClient *agora_rtm_client_create(const struct C_RtmConfig *config, int *errorCode);
+  AGORA_RTM_API_C_HDL agora_rtm_client_create(const rtm_config *config, int *errorCode);
 
   /**
    * Convert error code to error string
@@ -953,14 +951,14 @@ extern "C"
    * @param [in] errorCode Received error code
    * @return The error reason
    */
-  const char *agora_rtm_client_get_error_reason(int errorCode);
+  AGORA_RTM_API_C_LITERAL agora_rtm_client_get_error_reason(int errorCode);
 
   /**
    * Get the version info of the Agora RTM SDK.
    *
    * @return The version info of the Agora RTM SDK.
    */
-  const char *agora_rtm_client_get_version();
+  AGORA_RTM_API_C_LITERAL agora_rtm_client_get_version();
 
 #pragma endregion agora::rtm
 

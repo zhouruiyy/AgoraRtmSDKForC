@@ -11,57 +11,57 @@ using namespace agora::rtm;
 
 #pragma region agora::rtm
 
-#pragma region C_IRtmLock
+#pragma region agora_rtm_lock
 
-void agora_rtm_lock_set_lock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, uint32_t ttl, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_lock_set_lock(AGORA_RTM_HANDLE agora_rtm_lock, const char *channelName, RTM_CHANNEL_TYPE channelType, const char *lockName, uint32_t ttl, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !lockName || !requestId) {
+    if (!agora_rtm_lock || !channelName || !lockName || !requestId) {
         return;
     }
-    ((IRtmLock *)this_)->setLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, ttl, *requestId);
+    ((IRtmLock *)agora_rtm_lock)->setLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, ttl, *requestId);
 }
 
-void agora_rtm_lock_get_locks(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_lock_get_locks(AGORA_RTM_HANDLE agora_rtm_lock, const char *channelName, RTM_CHANNEL_TYPE channelType, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !requestId) {
+    if (!agora_rtm_lock || !channelName || !requestId) {
         return;
     }
-    ((IRtmLock *)this_)->getLocks(channelName, (RTM_CHANNEL_TYPE)channelType, *requestId);
+    ((IRtmLock *)agora_rtm_lock)->getLocks(channelName, (RTM_CHANNEL_TYPE)channelType, *requestId);
 }
 
-void agora_rtm_lock_remove_lock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_lock_remove_lock(AGORA_RTM_HANDLE agora_rtm_lock, const char *channelName, RTM_CHANNEL_TYPE channelType, const char *lockName, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !lockName || !requestId) {
+    if (!agora_rtm_lock || !channelName || !lockName || !requestId) {
         return;
     }
-    ((IRtmLock *)this_)->removeLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, *requestId);
+    ((IRtmLock *)agora_rtm_lock)->removeLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, *requestId);
 }
 
-void agora_rtm_lock_acquire_lock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, bool retry, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_lock_acquire_lock(AGORA_RTM_HANDLE agora_rtm_lock, const char *channelName, RTM_CHANNEL_TYPE channelType, const char *lockName, bool retry, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !lockName || !requestId) {
+    if (!agora_rtm_lock || !channelName || !lockName || !requestId) {
         return;
     }
-    ((IRtmLock *)this_)->acquireLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, retry, *requestId);
+    ((IRtmLock *)agora_rtm_lock)->acquireLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, retry, *requestId);
 }
 
-void agora_rtm_lock_release_lock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_lock_release_lock(AGORA_RTM_HANDLE agora_rtm_lock, const char *channelName, RTM_CHANNEL_TYPE channelType, const char *lockName, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !lockName || !requestId) {
+    if (!agora_rtm_lock || !channelName || !lockName || !requestId) {
         return;
     }
-    ((IRtmLock *)this_)->releaseLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, *requestId);
+    ((IRtmLock *)agora_rtm_lock)->releaseLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, *requestId);
 }
 
-void agora_rtm_lock_revoke_lock(C_IRtmLock *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *lockName, const char *owner, uint64_t *requestId)
+AGORA_RTM_API_C_VOID agora_rtm_lock_revoke_lock(AGORA_RTM_HANDLE agora_rtm_lock, const char *channelName, RTM_CHANNEL_TYPE channelType, const char *lockName, const char *owner, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !lockName || !owner || !requestId) {
+    if (!agora_rtm_lock || !channelName || !lockName || !owner || !requestId) {
         return;
     }
-    ((IRtmLock *)this_)->revokeLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, owner, *requestId);
+    ((IRtmLock *)agora_rtm_lock)->revokeLock(channelName, (RTM_CHANNEL_TYPE)channelType, lockName, owner, *requestId);
 }
 
-#pragma endregion C_IRtmLock
+#pragma endregion agora_rtm_lock
 
 #pragma endregion agora::rtm
 

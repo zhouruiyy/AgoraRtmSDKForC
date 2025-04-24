@@ -11,71 +11,71 @@ using namespace agora::rtm;
 
 #pragma region agora::rtm
 
-#pragma region C_IRtmPresence
+#pragma region agora_rtm_presence
 
-int agora_rtm_presence_who_now(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_PresenceOptions *options, uint64_t *requestId)
+AGORA_RTM_API_C_INT agora_rtm_presence_who_now(AGORA_RTM_HANDLE agora_rtm_presence, const char *channelName, RTM_CHANNEL_TYPE channelType, const presence_options *options, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !options || !requestId) {
+    if (!agora_rtm_presence || !channelName || !options || !requestId) {
         return -1;
     }
-    ((IRtmPresence *)this_)->whoNow(channelName, (RTM_CHANNEL_TYPE)channelType, *(const PresenceOptions *)options, *requestId);
+    ((IRtmPresence *)agora_rtm_presence)->whoNow(channelName, (RTM_CHANNEL_TYPE)channelType, *(const PresenceOptions *)options, *requestId);
     return 0;
 }
 
-int agora_rtm_presence_where_now(C_IRtmPresence *this_, const char *userId, uint64_t *requestId)
+AGORA_RTM_API_C_INT agora_rtm_presence_where_now(AGORA_RTM_HANDLE agora_rtm_presence, const char *userId, uint64_t *requestId)
 {
-    if (!this_ || !userId || !requestId) {
+    if (!agora_rtm_presence || !userId || !requestId) {
         return -1;
     }
-    ((IRtmPresence *)this_)->whereNow(userId, *requestId);
+    ((IRtmPresence *)agora_rtm_presence)->whereNow(userId, *requestId);
     return 0;
 }
 
-int agora_rtm_presence_set_state(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_StateItem *items, size_t count, uint64_t *requestId)
+AGORA_RTM_API_C_INT agora_rtm_presence_set_state(AGORA_RTM_HANDLE agora_rtm_presence, const char *channelName, RTM_CHANNEL_TYPE channelType, const state_item *items, size_t count, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !items || !requestId) {
+    if (!agora_rtm_presence || !channelName || !items || !requestId) {
         return -1;
     }
-    ((IRtmPresence *)this_)->setState(channelName, (RTM_CHANNEL_TYPE)channelType, (const StateItem *)items, count, *requestId);
+    ((IRtmPresence *)agora_rtm_presence)->setState(channelName, (RTM_CHANNEL_TYPE)channelType, (const StateItem *)items, count, *requestId);
     return 0;
 }
 
-int agora_rtm_presence_remove_state(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char **keys, size_t count, uint64_t *requestId)
+AGORA_RTM_API_C_INT agora_rtm_presence_remove_state(AGORA_RTM_HANDLE agora_rtm_presence, const char *channelName, RTM_CHANNEL_TYPE channelType, const char **keys, size_t count, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !keys || !requestId) {
+    if (!agora_rtm_presence || !channelName || !keys || !requestId) {
         return -1;
     }
-    ((IRtmPresence *)this_)->removeState(channelName, (RTM_CHANNEL_TYPE)channelType, keys, count, *requestId);
+    ((IRtmPresence *)agora_rtm_presence)->removeState(channelName, (RTM_CHANNEL_TYPE)channelType, keys, count, *requestId);
     return 0;
 }
 
-int agora_rtm_presence_get_state(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const char *userId, uint64_t *requestId)
+AGORA_RTM_API_C_INT agora_rtm_presence_get_state(AGORA_RTM_HANDLE agora_rtm_presence, const char *channelName, RTM_CHANNEL_TYPE channelType, const char *userId, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !userId || !requestId) {
+    if (!agora_rtm_presence || !channelName || !userId || !requestId) {
         return -1;
     }
-    ((IRtmPresence *)this_)->getState(channelName, (RTM_CHANNEL_TYPE)channelType, userId, *requestId);
+    ((IRtmPresence *)agora_rtm_presence)->getState(channelName, (RTM_CHANNEL_TYPE)channelType, userId, *requestId);
     return 0;
 }
 
-int agora_rtm_presence_get_online_users(C_IRtmPresence *this_, const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_GetOnlineUsersOptions *options, uint64_t *requestId)
+AGORA_RTM_API_C_INT agora_rtm_presence_get_online_users(AGORA_RTM_HANDLE agora_rtm_presence, const char *channelName, RTM_CHANNEL_TYPE channelType, const get_online_users_options *options, uint64_t *requestId)
 {
-    if (!this_ || !channelName || !options || !requestId) {
+    if (!agora_rtm_presence || !channelName || !options || !requestId) {
         return -1;
     }
-    ((IRtmPresence *)this_)->getOnlineUsers(channelName, (RTM_CHANNEL_TYPE)channelType, *(const GetOnlineUsersOptions *)options, *requestId);
+    ((IRtmPresence *)agora_rtm_presence)->getOnlineUsers(channelName, (RTM_CHANNEL_TYPE)channelType, *(const GetOnlineUsersOptions *)options, *requestId);
     return 0;
 }
 
-int agora_rtm_presence_get_user_channels(C_IRtmPresence *this_, const char *userId, uint64_t *requestId)
+AGORA_RTM_API_C_INT agora_rtm_presence_get_user_channels(AGORA_RTM_HANDLE agora_rtm_presence, const char *userId, uint64_t *requestId)
 {
-    if (!this_ || !userId || !requestId) {
+    if (!agora_rtm_presence || !userId || !requestId) {
         return -1;
     }
-    ((IRtmPresence *)this_)->getUserChannels(userId, *requestId);
+    ((IRtmPresence *)agora_rtm_presence)->getUserChannels(userId, *requestId);
     return 0;
 }
-#pragma endregion C_IRtmPresence
+#pragma endregion agora_rtm_presence
 
 #pragma endregion agora::rtm
 

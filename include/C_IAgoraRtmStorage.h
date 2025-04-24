@@ -1,7 +1,7 @@
 #ifndef C_I_AGORA_RTM_STORAGE_H
 #define C_I_AGORA_RTM_STORAGE_H
 
-#include "agora_api.h"
+#include "agora_rtm_api.h"
 
 #include "C_AgoraRtmBase.h"
 
@@ -17,7 +17,7 @@ extern "C"
   /**
    * Metadata options.
    */
-  struct C_MetadataOptions
+  typedef struct _metadata_options
   {
     /**
      * Indicates whether or not to notify server update the modify timestamp of metadata
@@ -27,11 +27,11 @@ extern "C"
      * Indicates whether or not to notify server update the modify user id of metadata
      */
     bool recordUserId;
-  };
-  struct C_MetadataOptions *C_MetadataOptions_New();
-  void C_MetadataOptions_Delete(struct C_MetadataOptions *this_);
+  } metadata_options;
+  metadata_options *metadata_options_create();
+  void metadata_options_delete(metadata_options *this_);
 
-  struct C_MetadataItem
+  typedef struct _metadata_item
   {
     /**
      * The key of the metadata item.
@@ -53,11 +53,11 @@ extern "C"
      * The Timestamp when the metadata item was last updated.
      */
     int64_t updateTs;
-  };
-  struct C_MetadataItem *C_MetadataItem_New();
-  void C_MetadataItem_Delete(struct C_MetadataItem *this_);
+  } metadata_item;
+  metadata_item *metadata_item_create();
+  void metadata_item_delete(metadata_item *this_);
 
-  struct C_Metadata
+  typedef struct _metadata
   {
     /**
      * the major revision of metadata.
@@ -66,17 +66,16 @@ extern "C"
     /**
      * The metadata item array.
      */
-    struct C_MetadataItem *items;
+    metadata_item *items;
     /**
      * The items count.
      */
     size_t itemCount;
-  };
-  struct C_Metadata *C_Metadata_New();
-  void C_Metadata_Delete(struct C_Metadata *this_);
+  } metadata;
+  metadata *metadata_create();
+  void metadata_delete(metadata *this_);
 
-  typedef void C_IRtmStorage;
-#pragma region C_IRtmStorage
+#pragma region agora_rtm_storage
   /**
    * Set the metadata of a specified channel.
    *
@@ -87,8 +86,8 @@ extern "C"
    * @param [in] lock lock for operate channel metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_storage_set_channel_metadata(C_IRtmStorage *this_,
-                                       const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, const struct C_MetadataOptions *options, const char *lockName, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_storage_set_channel_metadata(AGORA_RTM_HANDLE agora_rtm_storage,
+                                       const char *channelName, C_RTM_CHANNEL_TYPE channelType, const metadata *data, const metadata_options *options, const char *lockName, uint64_t *requestId);
   /**
    * Update the metadata of a specified channel.
    *
@@ -99,8 +98,8 @@ extern "C"
    * @param [in] lock lock for operate channel metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_storage_update_channel_metadata(C_IRtmStorage *this_,
-                                          const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, const struct C_MetadataOptions *options, const char *lockName, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_storage_update_channel_metadata(AGORA_RTM_HANDLE agora_rtm_storage,
+                                          const char *channelName, C_RTM_CHANNEL_TYPE channelType, const metadata *data, const metadata_options *options, const char *lockName, uint64_t *requestId);
   /**
    * Remove the metadata of a specified channel.
    *
@@ -111,8 +110,8 @@ extern "C"
    * @param [in] lock lock for operate channel metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_storage_remove_channel_metadata(C_IRtmStorage *this_,
-                                          const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, const struct C_Metadata *data, const struct C_MetadataOptions *options, const char *lockName, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_storage_remove_channel_metadata(AGORA_RTM_HANDLE agora_rtm_storage,
+                                          const char *channelName, C_RTM_CHANNEL_TYPE channelType, const metadata *data, const metadata_options *options, const char *lockName, uint64_t *requestId);
   /**
    * Get the metadata of a specified channel.
    *
@@ -120,8 +119,8 @@ extern "C"
    * @param [in] channelType Which channel type, RTM_CHANNEL_TYPE_STREAM or RTM_CHANNEL_TYPE_MESSAGE.
    * @param requestId The unique ID of this request.
    */
-  void agora_rtm_storage_get_channel_metadata(C_IRtmStorage *this_,
-                                       const char *channelName, enum C_RTM_CHANNEL_TYPE channelType, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_storage_get_channel_metadata(AGORA_RTM_HANDLE agora_rtm_storage,
+                                       const char *channelName, C_RTM_CHANNEL_TYPE channelType, uint64_t *requestId);
 
   /**
    * Set the metadata of a specified user.
@@ -131,8 +130,8 @@ extern "C"
    * @param [in] options The options of operate metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_storage_set_user_metadata(C_IRtmStorage *this_,
-                                    const char *userId, const struct C_Metadata *data, const struct C_MetadataOptions *options, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_storage_set_user_metadata(AGORA_RTM_HANDLE agora_rtm_storage,
+                                    const char *userId, const metadata *data, const metadata_options *options, uint64_t *requestId);
   /**
    * Update the metadata of a specified user.
    *
@@ -141,8 +140,8 @@ extern "C"
    * @param [in] options The options of operate metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_storage_update_user_metadata(C_IRtmStorage *this_,
-                                       const char *userId, const struct C_Metadata *data, const struct C_MetadataOptions *options, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_storage_update_user_metadata(AGORA_RTM_HANDLE agora_rtm_storage,
+                                       const char *userId, const metadata *data, const metadata_options *options, uint64_t *requestId);
   /**
    * Remove the metadata of a specified user.
    *
@@ -151,15 +150,15 @@ extern "C"
    * @param [in] options The options of operate metadata.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_storage_remove_user_metadata(C_IRtmStorage *this_,
-                                       const char *userId, const struct C_Metadata *data, const struct C_MetadataOptions *options, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_storage_remove_user_metadata(AGORA_RTM_HANDLE agora_rtm_storage,
+                                       const char *userId, const metadata *data, const metadata_options *options, uint64_t *requestId);
   /**
    * Get the metadata of a specified user.
    *
    * @param [in] userId The user ID of the specified user.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_storage_get_user_metadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_storage_get_user_metadata(AGORA_RTM_HANDLE agora_rtm_storage, const char *userId, uint64_t *requestId);
 
   /**
    * Subscribe the metadata update event of a specified user.
@@ -167,15 +166,16 @@ extern "C"
    * @param [in] userId The user ID of the specified user.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_storage_subscribe_user_metadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_storage_subscribe_user_metadata(AGORA_RTM_HANDLE agora_rtm_storage, const char *userId, uint64_t *requestId);
   /**
    * unsubscribe the metadata update event of a specified user.
    *
    * @param [in] userId The user ID of the specified user.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_storage_unsubscribe_user_metadata(C_IRtmStorage *this_, const char *userId, uint64_t *requestId);
-#pragma endregion C_IRtmStorage
+  AGORA_RTM_API_C_VOID agora_rtm_storage_unsubscribe_user_metadata(AGORA_RTM_HANDLE agora_rtm_storage, const char *userId, uint64_t *requestId);
+
+#pragma endregion agora_rtm_storage
 
 #pragma endregion agora::rtm
 

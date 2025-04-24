@@ -11,151 +11,151 @@ using namespace agora::rtm;
 
 #pragma region agora::rtm
 
-struct C_RtmLogConfig *C_RtmLogConfig_New()
+rtm_log_config *rtm_log_config_create()
 {
-    return (C_RtmLogConfig *)(new RtmLogConfig());
+    return (rtm_log_config *)(new RtmLogConfig());
 }
-void C_RtmLogConfig_Delete(struct C_RtmLogConfig *this_)
+void rtm_log_config_delete(rtm_log_config *this_)
 {
     delete (RtmLogConfig *)this_;
     this_ = nullptr;
 }
 
-struct C_UserList *C_UserList_New()
+user_list *user_list_create()
 {
-    return (C_UserList *)(new UserList());
+    return (user_list *)(new UserList());
 }
-void C_UserList_Delete(struct C_UserList *this_)
+void user_list_delete(user_list *this_)
 {
-    delete (C_UserList *)this_;
+    delete (UserList *)this_;
     this_ = nullptr;
 }
 
-struct C_PublisherInfo *C_PublisherInfo_New()
+publisher_info *publisher_info_create()
 {
-    return (C_PublisherInfo *)(new PublisherInfo());
+    return (publisher_info *)(new PublisherInfo());
 }
-void C_PublisherInfo_Delete(struct C_PublisherInfo *this_)
+void publisher_info_delete(publisher_info *this_)
 {
     delete (PublisherInfo *)this_;
     this_ = nullptr;
 }
 
-struct C_TopicInfo *C_TopicInfo_New()
+topic_info *topic_info_create()
 {
-    return (C_TopicInfo *)(new TopicInfo());
+    return (topic_info *)(new TopicInfo());
 }
-void C_TopicInfo_Delete(struct C_TopicInfo *this_)
+void topic_info_delete(topic_info *this_)
 {
     delete (TopicInfo *)this_;
     this_ = nullptr;
 }
 
-struct C_StateItem *C_StateItem_New()
+state_item *state_item_create()
 {
-    return (C_StateItem *)(new StateItem());
+    return (state_item *)(new StateItem());
 }
-void C_StateItem_Delete(struct C_StateItem *this_)
+void state_item_delete(state_item *this_)
 {
     delete (StateItem *)this_;
     this_ = nullptr;
 }
 
-struct C_LockDetail *C_LockDetail_New()
+lock_detail *lock_detail_create()
 {
-    return (C_LockDetail *)(new LockDetail());
+    return (lock_detail *)(new LockDetail());
 }
-void C_LockDetail_Delete(struct C_LockDetail *this_)
+void lock_detail_delete(lock_detail *this_)
 {
     delete (LockDetail *)this_;
     this_ = nullptr;
 }
 
-struct C_UserState *C_UserState_New()
+user_state *user_state_create()
 {
-    return (C_UserState *)(new UserState());
+    return (user_state *)(new UserState());
 }
-void C_UserState_Delete(struct C_UserState *this_)
+void user_state_delete(user_state *this_)
 {
     delete (UserState *)this_;
     this_ = nullptr;
 }
 
-struct C_SubscribeOptions *C_SubscribeOptions_New()
+subscribe_options *subscribe_options_create()
 {
-    return (C_SubscribeOptions *)(new SubscribeOptions());
+    return (subscribe_options *)(new SubscribeOptions());
 }
-void C_SubscribeOptions_Delete(struct C_SubscribeOptions *this_)
+void subscribe_options_delete(subscribe_options *this_)
 {
     delete (SubscribeOptions *)this_;
     this_ = nullptr;
 }
 
-struct C_ChannelInfo *C_ChannelInfo_New()
+channel_info *channel_info_create()
 {
-    return (C_ChannelInfo *)(new ChannelInfo());
+    return (channel_info *)(new ChannelInfo());
 }
-void C_ChannelInfo_Delete(struct C_ChannelInfo *this_)
+void channel_info_delete(channel_info *this_)
 {
     delete (ChannelInfo *)this_;
     this_ = nullptr;
 }
 
-struct C_PresenceOptions *C_PresenceOptions_New()
+presence_options *presence_options_create()
 {
-    return (C_PresenceOptions *)(new PresenceOptions());
+    return (presence_options *)(new PresenceOptions());
 }
-void C_PresenceOptions_Delete(struct C_PresenceOptions *this_)
+void presence_options_delete(presence_options *this_)
 {
     delete (PresenceOptions *)this_;
     this_ = nullptr;
 }
 
-struct C_GetOnlineUsersOptions *C_GetOnlineUsersOptions_New()
+get_online_users_options *get_online_users_options_create()
 {
-    return (C_GetOnlineUsersOptions *)(new GetOnlineUsersOptions());
+    return (get_online_users_options *)(new GetOnlineUsersOptions());
 }
-void C_GetOnlineUsersOptions_Delete(struct C_GetOnlineUsersOptions *this_)
+void get_online_users_options_delete(get_online_users_options *this_)
 {
     delete (GetOnlineUsersOptions *)this_;
     this_ = nullptr;
 }
 
-struct C_PublishOptions *C_PublishOptions_New()
+publish_options *publish_options_create()
 {
-    return (C_PublishOptions *)(new PublishOptions());
+    return (publish_options *)(new PublishOptions());
 }
-void C_PublishOptions_Delete(struct C_PublishOptions *this_)
+void publish_options_delete(publish_options *this_)
 {
     delete (PublishOptions *)this_;
     this_ = nullptr;
 }
 
-struct C_TopicMessageOptions *C_TopicMessageOptions_New()
+topic_message_options *topic_message_options_create()
 {
-    return (C_TopicMessageOptions *)(new TopicMessageOptions());
+    return (topic_message_options *)(new TopicMessageOptions());
 }
-void C_TopicMessageOptions_Delete(struct C_TopicMessageOptions *this_)
+void topic_message_options_delete(topic_message_options *this_)
 {
     delete (TopicMessageOptions *)this_;
     this_ = nullptr;
 }
 
-struct C_RtmProxyConfig *C_RtmProxyConfig_New()
+rtm_proxy_config *rtm_proxy_config_create()
 {
-    return (C_RtmProxyConfig *)(new RtmProxyConfig());
+    return (rtm_proxy_config *)(new RtmProxyConfig());
 }
-void C_RtmProxyConfig_Delete(struct C_RtmProxyConfig *this_)
+void rtm_proxy_config_delete(rtm_proxy_config *this_)
 {
     delete (RtmProxyConfig *)this_;
     this_ = nullptr;
 }
 
-struct C_RtmEncryptionConfig *C_RtmEncryptionConfig_New()
+rtm_encryption_config *rtm_encryption_config_create()
 {
-    return (C_RtmEncryptionConfig *)(new RtmEncryptionConfig());
+    return (rtm_encryption_config *)(new RtmEncryptionConfig());
 }
-void C_RtmEncryptionConfig_Delete(struct C_RtmEncryptionConfig *this_)
+void rtm_encryption_config_delete(rtm_encryption_config *this_)
 {
     delete (RtmEncryptionConfig *)this_;
     this_ = nullptr;

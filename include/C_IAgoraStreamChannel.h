@@ -1,7 +1,7 @@
 #ifndef C_I_AGORA_STREAM_CHANNEL_H
 #define C_I_AGORA_STREAM_CHANNEL_H
 
-#include "agora_api.h"
+#include "agora_rtm_api.h"
 
 #include "C_AgoraRtmBase.h"
 
@@ -17,45 +17,45 @@ extern "C"
   /**
    * The qos of rtm message.
    */
-  enum C_RTM_MESSAGE_QOS
+  typedef enum _C_RTM_MESSAGE_QOS
   {
     /**
      * Will not ensure that messages arrive in order.
      */
-    RTM_MESSAGE_QOS_UNORDERED = 0,
+    C_RTM_MESSAGE_QOS_UNORDERED = 0,
     /**
      * Will ensure that messages arrive in order.
      */
-    RTM_MESSAGE_QOS_ORDERED = 1,
-  };
+    C_RTM_MESSAGE_QOS_ORDERED = 1,
+  } C_RTM_MESSAGE_QOS;
 
   /**
    * The priority of rtm message.
    */
-  enum C_RTM_MESSAGE_PRIORITY
+  typedef enum _C_RTM_MESSAGE_PRIORITY
   {
     /**
      * The highest priority
      */
-    RTM_MESSAGE_PRIORITY_HIGHEST = 0,
+    C_RTM_MESSAGE_PRIORITY_HIGHEST = 0,
     /**
      * The high priority
      */
-    RTM_MESSAGE_PRIORITY_HIGH = 1,
+    C_RTM_MESSAGE_PRIORITY_HIGH = 1,
     /**
      * The normal priority (Default)
      */
-    RTM_MESSAGE_PRIORITY_NORMAL = 4,
+    C_RTM_MESSAGE_PRIORITY_NORMAL = 4,
     /**
      * The low priority
      */
-    RTM_MESSAGE_PRIORITY_LOW = 8,
-  };
+    C_RTM_MESSAGE_PRIORITY_LOW = 8,
+  } C_RTM_MESSAGE_PRIORITY;
 
   /**
    * Join channel options.
    */
-  struct C_JoinChannelOptions
+  typedef struct _join_channel_options
   {
     /**
      * Token used to join channel.
@@ -77,24 +77,24 @@ extern "C"
      * Whether to join channel in quiet mode
      */
     bool beQuiet;
-  };
-  struct C_JoinChannelOptions *C_JoinChannelOptions_New();
-  void C_JoinChannelOptions_Delete(struct C_JoinChannelOptions *this_);
+  } join_channel_options;
+  join_channel_options *join_channel_options_new();
+  void join_channel_options_delete(join_channel_options *this_);
 
   /**
    * Join topic options.
    */
-  struct C_JoinTopicOptions
+  typedef struct _join_topic_options
   {
     /**
      * The qos of rtm message.
      */
-    enum C_RTM_MESSAGE_QOS qos;
+    C_RTM_MESSAGE_QOS qos;
 
     /**
      * The priority of rtm message.
      */
-    enum C_RTM_MESSAGE_PRIORITY priority;
+    C_RTM_MESSAGE_PRIORITY priority;
 
     /**
      * The metaData of topic.
@@ -105,14 +105,14 @@ extern "C"
      * The rtm data will sync with media
      */
     bool syncWithMedia;
-  };
-  struct C_JoinTopicOptions *C_JoinTopicOptions_New();
-  void C_JoinTopicOptions_Delete(struct C_JoinTopicOptions *this_);
+  } join_topic_options;
+  join_topic_options *join_topic_options_new();
+  void join_topic_options_delete(join_topic_options *this_);
 
   /**
    * Topic options.
    */
-  struct C_TopicOptions
+  typedef struct _topic_options
   {
     /**
      * The list of users to subscribe.
@@ -122,24 +122,23 @@ extern "C"
      * The number of users.
      */
     size_t userCount;
-  };
-  struct C_TopicOptions *C_TopicOptions_New();
-  void C_TopicOptions_Delete(struct C_TopicOptions *this_);
+  } topic_options;
+  topic_options *topic_options_new();
+  void topic_options_delete(topic_options *this_);
 
   /**
    * The IStreamChannel class.
    *
    * This class provides the stream channel methods that can be invoked by your app.
    */
-  typedef void C_IStreamChannel;
-#pragma region C_IStreamChannel
+#pragma region agora_rtm_stream_channel
   /**
    * Join the channel.
    *
    * @param [in] options join channel options.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_stream_channel_join(C_IStreamChannel *this_, const struct C_JoinChannelOptions *options, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_stream_channel_join(AGORA_RTM_HANDLE agora_rtm_stream_channel, const join_channel_options *options, uint64_t *requestId);
 
   /**
    * Renews the token. Once a token is enabled and used, it expires after a certain period of time.
@@ -148,21 +147,21 @@ extern "C"
    * @param [in] token Token used renew.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_stream_channel_renew_token(C_IStreamChannel *this_, const char *token, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_stream_channel_renew_token(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *token, uint64_t *requestId);
 
   /**
    * Leave the channel.
    *
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_stream_channel_leave(C_IStreamChannel *this_, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_stream_channel_leave(AGORA_RTM_HANDLE agora_rtm_stream_channel, uint64_t *requestId);
 
   /**
    * Return the channel name of this stream channel.
    *
    * @return The channel name.
    */
-  const char *agora_rtm_stream_channel_get_channel_name(C_IStreamChannel *this_);
+  AGORA_RTM_API_C_LITERAL agora_rtm_stream_channel_get_channel_name(AGORA_RTM_HANDLE agora_rtm_stream_channel);
 
   /**
    * Join a topic.
@@ -171,7 +170,7 @@ extern "C"
    * @param [in] options The options of the topic.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_stream_channel_join_topic(C_IStreamChannel *this_, const char *topic, const struct C_JoinTopicOptions *options, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_stream_channel_join_topic(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, const join_topic_options *options, uint64_t *requestId);
 
   /**
    * Publish a message in the topic.
@@ -182,7 +181,7 @@ extern "C"
    * @param [in] option The option of the message.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_stream_channel_publish_topic_message(C_IStreamChannel *this_, const char *topic, const char *message, size_t length, const struct C_TopicMessageOptions *option, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_stream_channel_publish_topic_message(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, const char *message, size_t length, const topic_message_options *option, uint64_t *requestId);
 
   /**
    * Leave the topic.
@@ -190,7 +189,7 @@ extern "C"
    * @param [in] topic The name of the topic.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_stream_channel_leave_topic(C_IStreamChannel *this_, const char *topic, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_stream_channel_leave_topic(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, uint64_t *requestId);
 
   /**
    * Subscribe a topic.
@@ -199,7 +198,7 @@ extern "C"
    * @param [in] options The options of subscribe the topic.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_stream_channel_subscribe_topic(C_IStreamChannel *this_, const char *topic, const struct C_TopicOptions *options, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_stream_channel_subscribe_topic(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, const topic_options *options, uint64_t *requestId);
 
   /**
    * Unsubscribe a topic.
@@ -208,7 +207,7 @@ extern "C"
    * @param [in] options The options of unsubscribe the topic.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_stream_channel_unsubscribe_topic(C_IStreamChannel *this_, const char *topic, const struct C_TopicOptions *options, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_stream_channel_unsubscribe_topic(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, const topic_options *options, uint64_t *requestId);
 
   /**
    * Get subscribed user list
@@ -216,7 +215,7 @@ extern "C"
    * @param [in] topic The name of the topic.
    * @param [out] requestId The unique ID of this request.
    */
-  void agora_rtm_stream_channel_get_subscribed_user_list(C_IStreamChannel *this_, const char *topic, uint64_t *requestId);
+  AGORA_RTM_API_C_VOID agora_rtm_stream_channel_get_subscribed_user_list(AGORA_RTM_HANDLE agora_rtm_stream_channel, const char *topic, uint64_t *requestId);
 
   /**
    * Release the stream channel instance.
@@ -225,7 +224,7 @@ extern "C"
    * - 0: Success.
    * - < 0: Failure.
    */
-  int agora_rtm_stream_channel_release(C_IStreamChannel *this_);
+  AGORA_RTM_API_C_INT agora_rtm_stream_channel_release(AGORA_RTM_HANDLE agora_rtm_stream_channel);
 
 #pragma endregion C_IStreamChannel
 

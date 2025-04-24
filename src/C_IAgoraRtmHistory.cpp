@@ -11,12 +11,12 @@ using namespace agora::rtm;
 
 extern "C" {
 
-int agora_rtm_history_get_messages(C_IRtmHistory *this_,
+AGORA_RTM_API_C_INT agora_rtm_history_get_messages(AGORA_RTM_HANDLE agora_rtm_history,
                                 const char* channelName,
                                 C_RTM_CHANNEL_TYPE channelType,
-                                const C_GetHistoryMessagesOptions* options,
+                                const get_history_messages_options* options,
                                 uint64_t* requestId) {
-    if (!this_ || !channelName || !options || !requestId) {
+    if (!agora_rtm_history || !channelName || !options || !requestId) {
         return -1;
     }
     
@@ -25,7 +25,7 @@ int agora_rtm_history_get_messages(C_IRtmHistory *this_,
     sdkOptions.end = options->end;
     sdkOptions.messageCount = options->count;
     
-    ((IRtmHistory *)this_)->getMessages(channelName, 
+    ((IRtmHistory *)agora_rtm_history)->getMessages(channelName, 
                                static_cast<RTM_CHANNEL_TYPE>(channelType),
                                sdkOptions,
                                *requestId);

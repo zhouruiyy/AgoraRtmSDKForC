@@ -1,6 +1,8 @@
 #ifndef C_I_AGORA_RTM_HISTORY_H
 #define C_I_AGORA_RTM_HISTORY_H
 
+#include "agora_rtm_api.h"
+
 #include "C_AgoraRtmBase.h"
 
 #ifdef __cplusplus
@@ -9,18 +11,17 @@ extern "C"
 #endif // __cplusplus
 
 // Get History Messages Options
-typedef struct {
+typedef struct _get_history_messages_options {
     int64_t start;
     int64_t end;
     int count;
-} C_GetHistoryMessagesOptions;
+} get_history_messages_options;
 
 #pragma region agora
 
 #pragma region agora::rtm
 
-typedef void C_IRtmHistory;
-#pragma region C_IRtmHistory
+#pragma region agora_rtm_history
 
 /**
  * Gets history messages in the channel.
@@ -33,7 +34,9 @@ typedef void C_IRtmHistory;
  * - 0: Success.
  * - < 0: Failure.
  */
-int agora_rtm_history_get_messages(C_IRtmHistory *this_, const char* channelName, enum C_RTM_CHANNEL_TYPE channelType, const C_GetHistoryMessagesOptions* options, uint64_t* requestId);
+AGORA_RTM_API_C_INT agora_rtm_history_get_messages(AGORA_RTM_HANDLE agora_rtm_history, const char* channelName, C_RTM_CHANNEL_TYPE channelType, const get_history_messages_options* options, uint64_t* requestId);
+
+#pragma endregion agora_rtm_history
 
 #pragma endregion agora::rtm
 

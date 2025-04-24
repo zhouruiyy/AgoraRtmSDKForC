@@ -53,27 +53,27 @@ void C_DemoRtmEventHandler_cbPrint(const char *fmt, ...)
     va_end(args);
 }
 
-void C_DemoRtmEventHandler_onLoginResult(C_RtmEventHandlerBridge *this_, void *userData, const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode)
+void C_DemoRtmEventHandler_onLoginResult(C_RtmEventHandlerBridge *this_, void *userData, const uint64_t requestId, C_RTM_ERROR_CODE errorCode)
 {
     C_DemoRtmEventHandler_cbPrint("onLoginResult callback: requestId=%llu, errorCode=%d\n", requestId, errorCode);
 }
 
-void C_DemoRtmEventHandler_onConnectionStateChanged(C_RtmEventHandlerBridge *this_, void *userData, const char *channelName, enum C_RTM_CONNECTION_STATE state, enum C_RTM_CONNECTION_CHANGE_REASON reason)
+void C_DemoRtmEventHandler_onConnectionStateChanged(C_RtmEventHandlerBridge *this_, void *userData, const char *channelName, C_RTM_CONNECTION_STATE state, C_RTM_CONNECTION_CHANGE_REASON reason)
 {
     C_DemoRtmEventHandler_cbPrint("onConnectionStateChanged callback: channel=%s, state=%d, reason=%d\n", channelName ? channelName : "None", state, reason);
 }
 
-void C_DemoRtmEventHandler_onPublishResult(C_RtmEventHandlerBridge *this_, void *userData, const uint64_t requestId, enum C_RTM_ERROR_CODE errorCode)
+void C_DemoRtmEventHandler_onPublishResult(C_RtmEventHandlerBridge *this_, void *userData, const uint64_t requestId, C_RTM_ERROR_CODE errorCode)
 {
     C_DemoRtmEventHandler_cbPrint("onPublishResult callback: requestId=%llu, errorCode=%d\n", requestId, errorCode);
 }
 
-void C_DemoRtmEventHandler_onMessageEvent(C_RtmEventHandlerBridge *this_, void *userData, const struct C_MessageEvent *event)
+void C_DemoRtmEventHandler_onMessageEvent(C_RtmEventHandlerBridge *this_, void *userData, const message_event *event)
 {
     C_DemoRtmEventHandler_cbPrint("onMessageEvent callback: channel=%s, message=%.*s, from=%s\n", event->channelName, (int)event->messageLength, event->message, event->publisher);
 }
 
-void C_DemoRtmEventHandler_onSubscribeResult(C_RtmEventHandlerBridge *this_, void *userData, const uint64_t requestId, const char *channelName, enum C_RTM_ERROR_CODE errorCode)
+void C_DemoRtmEventHandler_onSubscribeResult(C_RtmEventHandlerBridge *this_, void *userData, const uint64_t requestId, const char *channelName, C_RTM_ERROR_CODE errorCode)
 {
     C_DemoRtmEventHandler_cbPrint("onSubscribeResult callback: requestId=%llu, channel=%s, errorCode=%d\n", requestId, channelName, errorCode);
 }
@@ -90,16 +90,17 @@ C_RtmEventHandlerBridge_Callbacks C_DemoRtmEventHandler = {
 typedef struct C_DemoMessaging
 {
     C_RtmEventHandlerBridge *eventHandler_;
-    C_IRtmClient *rtmClient_;
+    AGORA_RTM_HANDLE *rtmClient_;
 } C_DemoMessaging;
 
 // 前置声明函数，以避免未声明的隐式函数调用
-int agora_rtm_client_login(C_IRtmClient *this_, const char *token, uint64_t *requestId);
-int agora_rtm_client_logout(C_IRtmClient *this_, uint64_t *requestId);
-int agora_rtm_client_subscribe(C_IRtmClient *this_, const char *channelName, const struct C_SubscribeOptions *options, uint64_t *requestId);
-int agora_rtm_client_unsubscribe(C_IRtmClient *this_, const char *channelName, uint64_t *requestId);
-int agora_rtm_client_publish(C_IRtmClient *this_, const char *channelName, const char *message, const size_t length, const struct C_PublishOptions *option, uint64_t *requestId);
-int agora_rtm_client_release(C_IRtmClient *this_);
+// 修正第一个参数类型以匹配 C_IAgoraRtmClient.h 中的声明
+AGORA_RTM_API_C_INT agora_rtm_client_login(AGORA_RTM_HANDLE agora_rtm_client, const char *token, uint64_t *requestId);
+AGORA_RTM_API_C_INT agora_rtm_client_logout(AGORA_RTM_HANDLE agora_rtm_client, uint64_t *requestId);
+AGORA_RTM_API_C_INT agora_rtm_client_subscribe(AGORA_RTM_HANDLE agora_rtm_client, const char *channelName, const subscribe_options *options, uint64_t *requestId);
+AGORA_RTM_API_C_INT agora_rtm_client_unsubscribe(AGORA_RTM_HANDLE agora_rtm_client, const char *channelName, uint64_t *requestId);
+AGORA_RTM_API_C_INT agora_rtm_client_publish(AGORA_RTM_HANDLE agora_rtm_client, const char *channelName, const char *message, const size_t length, const publish_options *option, uint64_t *requestId);
+AGORA_RTM_API_C_INT agora_rtm_client_release(AGORA_RTM_HANDLE agora_rtm_client);
 
 C_DemoMessaging *C_DemoMessaging_New(const char *userId)
 {
@@ -122,7 +123,7 @@ C_DemoMessaging *C_DemoMessaging_New(const char *userId)
     }
     
     // 创建配置
-    struct C_RtmConfig *config = C_RtmConfig_New();
+    rtm_config *config = rtm_config_create();
     if (config == NULL) {
         printf(RED "Failed to create RTM config\n" RESET);
         C_RtmEventHandlerBridge_Delete(this_->eventHandler_);
@@ -140,13 +141,13 @@ C_DemoMessaging *C_DemoMessaging_New(const char *userId)
     this_->rtmClient_ = agora_rtm_client_create(config, &errorCode);
     if (this_->rtmClient_ == NULL || errorCode != 0) {
         printf(RED "Error creating RTM client: %d\n" RESET, errorCode);
-        C_RtmConfig_Delete(config);
+        rtm_config_delete(config);
         C_RtmEventHandlerBridge_Delete(this_->eventHandler_);
         free(this_);
         return NULL;
     }
     
-    C_RtmConfig_Delete(config);
+    rtm_config_delete(config);
     return this_;
 }
 
@@ -190,7 +191,7 @@ void C_DemoMessaging_subscribeChannel(C_DemoMessaging *this_, char *chnId)
         return;
     }
     
-    struct C_SubscribeOptions *opt = C_SubscribeOptions_New();
+    subscribe_options *opt = subscribe_options_create();
     if (opt == NULL) {
         printf(RED "Failed to create subscribe options\n" RESET);
         return;
@@ -204,7 +205,7 @@ void C_DemoMessaging_subscribeChannel(C_DemoMessaging *this_, char *chnId)
     int ret = agora_rtm_client_subscribe(this_->rtmClient_, chnId, opt, &requestId);
     printf(BOLDBLUE "subscribe ret: %d, requestId: %llu\n" RESET, ret, requestId);
     
-    C_SubscribeOptions_Delete(opt);
+    subscribe_options_delete(opt);
 }
 
 // Unsubscribe from a channel
@@ -228,20 +229,20 @@ void C_DemoMessaging_publishMessage(C_DemoMessaging *this_, char *chn, char *msg
         return;
     }
     
-    struct C_PublishOptions *opt = C_PublishOptions_New();
+    publish_options *opt = publish_options_create();
     if (opt == NULL) {
         printf(RED "Failed to create publish options\n" RESET);
         return;
     }
     
     // 设置消息类型为字符串
-    opt->messageType = RTM_MESSAGE_TYPE_STRING;
+    opt->messageType = C_RTM_MESSAGE_TYPE_STRING;
     
     uint64_t requestId;
     int ret = agora_rtm_client_publish(this_->rtmClient_, chn, msg, strlen(msg), opt, &requestId);
     printf(BOLDBLUE "publish ret: %d, requestId: %llu\n" RESET, ret, requestId);
     
-    C_PublishOptions_Delete(opt);
+    publish_options_delete(opt);
 }
 
 void C_DemoMessaging_Chat(C_DemoMessaging *this_, char *channel)
