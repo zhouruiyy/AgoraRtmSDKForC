@@ -1,8 +1,8 @@
 # AgoraRTM SDK
 include(ExternalProject)
 if(APPLE) 
-  set(SDK_URL file://${CMAKE_CURRENT_LIST_DIR}/../Agora_RTM_OC_SDK_v2.2.4.zip)
-  set(SDK_URL_HASH MD5=f2012cbf6a7f7c4b01d05a3b1123eea0)
+  set(SDK_URL file://${CMAKE_CURRENT_LIST_DIR}/../Agora_Native_SDK_for_APPLE_MINI_RTM_675876_675799.zip)
+  set(SDK_URL_HASH MD5=c13ea0768cf46218d2bcfe259637ecee)
 else()
   set(SDK_URL file://${CMAKE_CURRENT_LIST_DIR}/../Agora_RTM_C++_SDK_for_Linux_v2.2.4.zip)
   set(SDK_URL_HASH MD5=40544932746f16945fbb31128eb0816f)
