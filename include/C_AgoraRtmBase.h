@@ -1353,6 +1353,10 @@ struct C_PublishOptions
    The custom type of the message, up to 32 bytes for customize
    */
  const char *customType;
+ /**
+   Whether to store in history, true to enable
+   */
+  bool storeInHistory;
 };
 struct C_PublishOptions *C_PublishOptions_New();
 void C_PublishOptions_Delete(struct C_PublishOptions *this_);

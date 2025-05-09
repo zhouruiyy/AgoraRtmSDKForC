@@ -376,7 +376,14 @@ int agora_rtm_client_publish(C_IRtmClient *this_, const char *channelName, const
     if (!this_ || !channelName || !message || !option || !requestId) {
         return -1;
     }
-    ((IRtmClient *)this_)->publish(channelName, message, length, *(const PublishOptions *)option, *requestId);
+
+    PublishOptions opt;
+    opt.channelType = (RTM_CHANNEL_TYPE)option->channelType;
+    opt.messageType = (RTM_MESSAGE_TYPE)option->messageType;
+    opt.customType = option->customType;
+    opt.storeInHistory = option->storeInHistory;
+
+    ((IRtmClient *)this_)->publish(channelName, message, length, opt, *requestId);
     return 0;
 }
 
@@ -384,7 +391,14 @@ int agora_rtm_client_subscribe(C_IRtmClient *this_, const char *channelName, con
     if (!this_ || !channelName || !options || !requestId) {
         return -1;
     }
-    ((IRtmClient *)this_)->subscribe(channelName, *(const SubscribeOptions *)options, *requestId);
+    SubscribeOptions opt;
+    opt.withMessage = options->withMessage;
+    opt.withPresence = options->withPresence;
+    opt.withMetadata = options->withMetadata;
+    opt.withLock = options->withLock;
+    opt.beQuiet = options->beQuiet;
+    
+    ((IRtmClient *)this_)->subscribe(channelName, opt, *requestId);
     return 0;
 }
 
